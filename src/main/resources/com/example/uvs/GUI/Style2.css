@@ -1,0 +1,17 @@
+
+
+.root {
+    -fx-background-image: url('MenuBackground.png');
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.anchor-pane {
+    -fx-background-color: transparent;
+}

@@ -1,0 +1,28 @@
+package com.example.uvs.GUI;
+
+import com.example.uvs.Citizen.Citizen;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
+public class CreateNewAccount {
+    @FXML
+    private TextField usernameField, passwordField;
+    @FXML
+    public void passBack(){
+        System.out.println("meow");
+        SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
+    }
+    @FXML
+    public void  handleCreateNewUser(){
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+        Citizen user1 = new Citizen(username, password);
+        SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
+    }
+}
