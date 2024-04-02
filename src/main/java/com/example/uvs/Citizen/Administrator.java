@@ -8,6 +8,9 @@ public class Administrator extends Citizen{
     }
     public void CreateCard(){
 
-//        Card card = new Card("Demolish", "fuck!", "meow");
+    }
+    @Override
+    public void performAction() {
+
     }
 }

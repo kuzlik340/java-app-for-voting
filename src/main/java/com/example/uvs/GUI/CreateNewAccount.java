@@ -1,6 +1,7 @@
 package com.example.uvs.GUI;
 
 import com.example.uvs.Citizen.Citizen;
+import com.example.uvs.Citizen.RegularVoter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,7 +23,7 @@ public class CreateNewAccount {
     public void  handleCreateNewUser(){
         String username = usernameField.getText();
         String password = passwordField.getText();
-        Citizen user1 = new Citizen(username, password);
+        Citizen user1 = new RegularVoter(username, password);
         SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
     }
 }

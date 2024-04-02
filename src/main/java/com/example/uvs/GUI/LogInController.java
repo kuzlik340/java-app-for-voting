@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 
 public class LogInController extends Application {
     @FXML
@@ -22,7 +21,8 @@ public class LogInController extends Application {
         showLogInWindow(primaryStage);
     }
     public static void showLogInWindow(Stage primaryStage) {
-        SceneManager.getInstance().setPrimaryStage(primaryStage); //initializing window to open an app
+        SceneManager.getInstance().setPrimaryStage(primaryStage); //initializing window to open an app\
+        primaryStage.setResizable(false);
         SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
     }
 

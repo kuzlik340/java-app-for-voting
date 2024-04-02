@@ -1,4 +1,5 @@
 package com.example.uvs.Voting_logic;
 
-public class MultiVote {
+public class MultiVote extends VotingProcess{
+
 }

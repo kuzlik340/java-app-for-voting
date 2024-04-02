@@ -55,15 +55,35 @@ public class SceneManager {
     }
 
 
-    public void loadSceneWithId(String fxmlPath, String buttonId) {
+//    public void loadSceneWithId(String fxmlPath, String buttonId) {
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+//            Parent root = loader.load();
+//            Scene scene = new Scene(root);
+//            Object controller = loader.getController();
+//
+//            if (controller instanceof VoteWindowEnd) { // Проверяем, является ли контроллер VoteWindowEnd
+//                ((VoteWindowEnd) controller).initData(buttonId); // Передаем buttonId
+//            }
+//            if (controller instanceof PassUsername) { // Передача username, если контроллер его поддерживает
+//                ((PassUsername) controller).PassUser(user);
+//            }
+//            primaryStage.setScene(scene);
+//            primaryStage.show();
+//        } catch (IOException e) {
+//            showErrorDialog();
+//        }
+//    }
+
+    public void loadSceneWithIdInt(String fxmlPath, int buttonId) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Object controller = loader.getController();
 
-            if (controller instanceof VoteWindowEnd) { // Проверяем, является ли контроллер VoteWindowEnd
-                ((VoteWindowEnd) controller).initData(buttonId); // Передаем buttonId
+            if (controller instanceof VoteWindow) { // Проверяем, является ли контроллер VoteWindowEnd
+                ((VoteWindow) controller).setID(buttonId); // Передаем buttonId
             }
             if (controller instanceof PassUsername) { // Передача username, если контроллер его поддерживает
                 ((PassUsername) controller).PassUser(user);
@@ -76,7 +96,6 @@ public class SceneManager {
     }
 
     public void showErrorDialog() {
-        // Проверяем, что мы находимся в потоке JavaFX
             Alert alert = new Alert(Alert.AlertType.ERROR); // Создаем диалоговое окно с типом ERROR
             alert.setTitle("Error");
             alert.setHeaderText("Unexpected error. Please restart application");

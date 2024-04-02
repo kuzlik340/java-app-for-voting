@@ -5,6 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 
 <?import javafx.scene.image.Image?>
+<?import javafx.geometry.Insets?>
 <VBox prefHeight="400.0" prefWidth="640.0" styleClass="root" stylesheets="@Style2.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.uvs.GUI.MenuWindow">
     <children>
         <MenuBar VBox.vgrow="NEVER">
@@ -18,19 +19,13 @@
         </MenuBar>
         <ScrollPane VBox.vgrow="ALWAYS" styleClass="scroll-pane">
             <content>
-                <AnchorPane styleClass="anchor-pane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0">
-                    <children>
-                        <Button fx:id="name1" layoutX="25.0" layoutY="21.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="590.0" onAction="#PassToVoteWindow"/>
-                        <Button fx:id="name2" layoutX="25.0" layoutY="208.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="590.0" onAction="#PassToVoteWindow"/>
-                        <Button fx:id="name3" layoutX="25.0" layoutY="112.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="590.0" onAction="#PassToVoteWindow"/>
-                        <Button fx:id="name4" layoutX="25.0" layoutY="312.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="590.0" onAction="#PassToVoteWindow"/>
-                        <Button fx:id="name5" layoutX="25.0" layoutY="412.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="590.0" onAction="#PassToVoteWindow"/>
-                        <Button fx:id="name6" layoutX="25.0" layoutY="512.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="590.0" onAction="#PassToVoteWindow"/>
-                        <Button fx:id="name7" layoutX="25.0" layoutY="612.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="590.0" onAction="#PassToVoteWindow"/>
-                        <Button fx:id="name8" layoutX="25.0" layoutY="712.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="590.0" onAction="#PassToVoteWindow"/>
-                    </children>
+                <AnchorPane fx:id="votingMenu" styleClass="anchor-pane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0">
+
                 </AnchorPane>
             </content>
+            <padding>
+                <Insets bottom="20.0" />
+            </padding>
         </ScrollPane>
     </children>
 </VBox>

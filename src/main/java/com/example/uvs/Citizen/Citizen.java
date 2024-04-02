@@ -1,10 +1,12 @@
 package com.example.uvs.Citizen;
 import java.sql.*;
 
-public class Citizen {
-    private String login;
-    private String password;
-    private static String url = "jdbc:sqlite:src/main/resources/com/example/uvs/User.db";
+public abstract class Citizen {
+    protected int id;
+    protected String name;
+    protected String login;
+    protected String password;
+    protected static String url = "jdbc:sqlite:src/main/resources/com/example/uvs/User.db";
 
     public Citizen(String login, String password){
         this.login = login;
@@ -12,17 +14,15 @@ public class Citizen {
         addUser(login, password);
     }
     public static boolean checkLogInfo(String login, String password) {
-        // Измененный SQL запрос для поиска пользователя с заданным логином и паролем
         String sqlSelect = "SELECT * FROM users WHERE login = ? AND password = ?";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt = conn.prepareStatement(sqlSelect)) {
 
-            // Установка параметров запроса
+
             pstmt.setString(1, login);
             pstmt.setString(2, password);
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                // Если ResultSet не пустой, значит пользователь найден
                 if (rs.next()) {
                     return true; // Пользователь найден
                 }
@@ -47,15 +47,12 @@ public class Citizen {
             pstmt.setString(1, login);
             pstmt.setString(2, password);
             pstmt.executeUpdate();
-            System.out.println("Пользователь успешно добавлен.");
         } catch (SQLException e) {
-            System.out.println("Ошибка при добавлении пользователя: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
+    public abstract void performAction();
 
-    public void checkDatabase(Citizen citizen){
-
-    }
 
 }
 

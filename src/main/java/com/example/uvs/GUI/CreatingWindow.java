@@ -11,5 +11,16 @@ import javafx.stage.Stage;
 
 
 public class CreatingWindow {
+    @FXML
+    TextField title, text, option1, option2, option3, option4;
+    @FXML
+    private void PassToLoginWindow(){
+        SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
+    }
+
+    @FXML
+    private void Create(){
+
+    }
 
 }
