@@ -1,6 +1,9 @@
 package com.example.uvs.GUI;
 
+import com.example.uvs.Citizen.ActionStrategy;
+import com.example.uvs.Citizen.Administrator;
 import com.example.uvs.Citizen.Citizen;
+import com.example.uvs.Citizen.RegularVoter;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -14,7 +17,9 @@ public class LogInController extends Application {
     @FXML
     private Label ErrorLabel;
     boolean isRegistered;
+    int isAdmin;
     private String username;
+    private ActionStrategy actionStrategy;
 
     @Override
     public void start(Stage primaryStage){
@@ -31,8 +36,16 @@ public class LogInController extends Application {
         username = usernameField.getText();  //getting login information
         String password = passwordField.getText();
         isRegistered = Citizen.checkLogInfo(username, password); //checking if user is registered in system or not
+        isAdmin = Citizen.checkAdmin(username, password);
         if (isRegistered) {
-            SceneManager.getInstance().setUsername(username);  //pass to menu window
+            if(isAdmin == 1){
+                actionStrategy = new Administrator(username, password);
+            }
+            else{
+                actionStrategy = new RegularVoter(username, password);
+            }
+            SceneManager.getInstance().setUsername(username); //pass to menu window
+            actionStrategy.performAction();
             SceneManager.getInstance().loadScene("MenuWindow.fxml");
             usernameField.clear();  //clearing fields if user will log out
             passwordField.clear();

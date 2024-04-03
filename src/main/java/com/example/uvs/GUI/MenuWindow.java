@@ -15,9 +15,9 @@ public class MenuWindow implements PassUsername{
     @FXML
     private Button name1, name2, name3;
     @FXML
-    private Menu userName;
-
+    private Menu userName, createNewVote;
     private String user;
+
     @FXML
     private AnchorPane votingMenu;
 
@@ -26,6 +26,14 @@ public class MenuWindow implements PassUsername{
     private void initialize() {
         votingCards = Card.getCards(); //putting in aggregated list objects
         getVotings();
+    }
+    public void setVisibleCreating(boolean setVisibility){
+        createNewVote.setVisible(setVisibility);
+    }
+    @FXML
+    private void PassToCreationWindow(){
+        System.out.println("meow meow meow");
+        SceneManager.getInstance().loadScene("CreateCardWindow.fxml");
     }
 
     @Override

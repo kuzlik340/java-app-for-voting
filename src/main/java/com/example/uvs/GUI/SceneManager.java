@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.example.uvs.Vote_cards.Card;
 public class SceneManager {
+    private boolean setVisibility;
     private static SceneManager instance = new SceneManager();
     private Stage primaryStage;
     private String user;
@@ -35,11 +36,13 @@ public class SceneManager {
     public String getUsername(){
         return user;
     }
-
+    public void setSetVisibility(boolean setting){
+        this.setVisibility = setting;
+        System.out.println(setting);
+    }
 
 
     public void loadScene(String fxmlPath){
-
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
@@ -48,6 +51,10 @@ public class SceneManager {
             if (controller instanceof PassUsername) { // Передача username, если контроллер его поддерживает
                 ((PassUsername) controller).PassUser(user);
             }
+            if (fxmlPath.equals("MenuWindow.fxml")) { // Передача username, если контроллер его поддерживает
+                ((MenuWindow) controller).setVisibleCreating(setVisibility);
+            }
+
             primaryStage.setScene(scene);
             primaryStage.show();
         }
@@ -79,7 +86,6 @@ public class SceneManager {
             alert.setTitle("Error");
             alert.setHeaderText("Unexpected error. Please restart application");
             alert.setContentText(":(");
-
             alert.showAndWait();
     }
     public Object getController(String fxmlPath) {

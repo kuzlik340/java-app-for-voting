@@ -24,6 +24,7 @@ public class CreateNewAccount {
         String username = usernameField.getText();
         String password = passwordField.getText();
         Citizen user1 = new RegularVoter(username, password);
+        user1.addUser(username, password);
         SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
     }
 }

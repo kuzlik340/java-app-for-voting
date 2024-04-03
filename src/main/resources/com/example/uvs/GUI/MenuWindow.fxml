@@ -10,9 +10,14 @@
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
-                <Menu fx:id="userName" mnemonicParsing="false" text="meow">
+                <Menu fx:id="userName" mnemonicParsing="false" text="username">
                     <items>
                         <MenuItem mnemonicParsing="false" text="Log out" onAction="#PassToLoginWindow"/>
+                    </items>
+                </Menu>
+                <Menu fx:id="createNewVote" visible="false" mnemonicParsing="false" text="Create new voting">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Create" onAction="#PassToCreationWindow"/>
                     </items>
                 </Menu>
             </menus>
