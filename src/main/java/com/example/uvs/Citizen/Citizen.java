@@ -1,4 +1,6 @@
 package com.example.uvs.Citizen;
+import com.example.uvs.DataBase.DataBaseConnection;
+
 import java.sql.*;
 
 public abstract class Citizen {
@@ -6,7 +8,6 @@ public abstract class Citizen {
     protected String name;
     protected String login;
     protected String password;
-    protected static String url = "jdbc:sqlite:src/main/resources/com/example/uvs/User.db";
 
     public Citizen(String login, String password){
         this.login = login;
@@ -15,23 +16,21 @@ public abstract class Citizen {
     }
     public static boolean checkLogInfo(String login, String password) {
         String sqlSelect = "SELECT * FROM users WHERE login = ? AND password = ?";
-        try (Connection conn = DriverManager.getConnection(url);
+        try (Connection conn = new DataBaseConnection().connect();
              PreparedStatement pstmt = conn.prepareStatement(sqlSelect)) {
-
 
             pstmt.setString(1, login);
             pstmt.setString(2, password);
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    return true; // Пользователь найден
-                }
+                return rs.next(); // Пользователь найден или нет
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return false; // Пользователь не найден
+        return false; // Пользователь не найден или ошибка
     }
+
 
 
     public String getLogin() {
@@ -42,7 +41,7 @@ public abstract class Citizen {
         String sql = "INSERT INTO users(login, password) VALUES(?, ?)";
 
         // Использование try-with-resources для автоматического закрытия соединения и PreparedStatement
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/com/example/uvs/User.db");
+        try (Connection conn = new DataBaseConnection().connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, login);
             pstmt.setString(2, password);

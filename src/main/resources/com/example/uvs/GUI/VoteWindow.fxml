@@ -54,8 +54,8 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <ScrollPane styleClass="scroll-pane" VBox.vgrow="ALWAYS">
-            <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+        <ScrollPane fx:id = "scrollBar" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
+            <AnchorPane fx:id = "anchorPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
                 <children>
                     <Label fx:id="MainLabel" alignment="CENTER" layoutX="20.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="600.0" style="-fx-font-size: 20px; -fx-text-fill: black; -fx-background-color: rgba(255, 255, 255);" />
                     <TextArea fx:id="MainText" editable="false" focusTraversable="false" layoutX="20.0" layoutY="60.0" prefHeight="150.0" prefWidth="600.0" style="-fx-font-size: 20px; -fx-text-fill: black; -fx-control-inner-background: rgba(255, 255, 255, 0.5); -fx-background-color: rgba(255, 255, 255, 0.5);" wrapText="true" />

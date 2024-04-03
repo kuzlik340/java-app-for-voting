@@ -21,10 +21,10 @@ public class MenuWindow implements PassUsername{
     @FXML
     private AnchorPane votingMenu;
 
-    List<Card> votingCards = new ArrayList<>();
+    List<Card> votingCards = new ArrayList<>(); //aggregation. Menuwindow have this list but not hosting it
     @FXML
     private void initialize() {
-        votingCards = Card.getCards();
+        votingCards = Card.getCards(); //putting in aggregated list objects
         getVotings();
     }
 
@@ -45,7 +45,7 @@ public class MenuWindow implements PassUsername{
            votingButton.setMinWidth(590.0);
            votingButton.setLayoutX(LayoutX);
            votingButton.setLayoutY(LayoutY);
-           votingButton.setOnAction(event -> PassToVoteWindow(card.getId(card)));
+           votingButton.setOnAction(event -> PassToVoteWindow(card.getId(card), votingCards));
            votingButton.setText(card.getName());
            votingMenu.getChildren().add(votingButton);
            LayoutY += 100;
@@ -54,8 +54,8 @@ public class MenuWindow implements PassUsername{
     }
 
     @FXML
-    private void PassToVoteWindow(int ID){
-        SceneManager.getInstance().loadSceneWithIdInt("VoteWindow.fxml", ID); //setting login scene
+    private void PassToVoteWindow(int ID, List<Card> votingCards){
+        SceneManager.getInstance().loadSceneWithIdInt("VoteWindow.fxml", ID, votingCards); //setting login scene
     }
     @FXML
     private void PassToLoginWindow(){
