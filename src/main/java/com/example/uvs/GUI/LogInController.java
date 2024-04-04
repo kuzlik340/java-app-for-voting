@@ -15,7 +15,7 @@ public class LogInController extends Application {
     @FXML
     private TextField usernameField, passwordField;
     @FXML
-    private Label ErrorLabel;
+    private Label ErrorLabel, ErrorLabel2, ErrorLabel3;
     boolean isRegistered;
     int isAdmin;
     private String username;
@@ -33,11 +33,26 @@ public class LogInController extends Application {
 
     @FXML
     private void handleLoginAction(){
-        username = usernameField.getText();  //getting login information
+        username = usernameField.getText();
         String password = passwordField.getText();
+        ErrorLabel.setVisible(false);
+        ErrorLabel2.setVisible(false);
+        ErrorLabel3.setVisible(false);
+
+        if(!isLoginValid(username)){
+            usernameField.setStyle("-fx-border-color: red;");  //if user is not registered
+            passwordField.setStyle("-fx-border-color: red;");
+            ErrorLabel2.setVisible(true);
+        }
+        if(!isPasswordValid(password) && isLoginValid(username)){
+            usernameField.setStyle("-fx-border-color: red;");  //if user is not registered
+            passwordField.setStyle("-fx-border-color: red;");
+            ErrorLabel3.setVisible(true);
+        }
+
         isRegistered = Citizen.checkLogInfo(username, password); //checking if user is registered in system or not
         isAdmin = Citizen.checkAdmin(username, password);
-        if (isRegistered) {
+        if (isRegistered && isPasswordValid(password) && isLoginValid(username)) {
             if(isAdmin == 1){
                 actionStrategy = new Administrator(username, password);
             }
@@ -49,12 +64,21 @@ public class LogInController extends Application {
             SceneManager.getInstance().loadScene("MenuWindow.fxml");
             usernameField.clear();  //clearing fields if user will log out
             passwordField.clear();
-        } else {
+        } else if(isPasswordValid(password) && isLoginValid(username)){
             ErrorLabel.setVisible(true);
             usernameField.setStyle("-fx-border-color: red;");  //if user is not registered
             passwordField.setStyle("-fx-border-color: red;");
         }
 
+    }
+    public static boolean isPasswordValid(String password) {
+        // Проверяем, что длина пароля не менее 6 символов и содержит хотя бы одну цифру
+        return password.length() >= 6 && password.matches(".*\\d.*");
+    }
+
+    public static boolean isLoginValid(String login) {
+        // Проверяем, что логин не содержит цифр
+        return !login.matches(".*\\d.*");
     }
 
     @FXML

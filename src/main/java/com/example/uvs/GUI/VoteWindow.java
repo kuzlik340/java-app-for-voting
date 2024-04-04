@@ -1,6 +1,7 @@
 package com.example.uvs.GUI;
 
 import com.example.uvs.Vote_cards.Card;
+import com.example.uvs.Voting_logic.VotingProcess;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
@@ -62,7 +63,7 @@ public class VoteWindow implements PassUsername{
                 System.out.println("meow meow");
                 mainlabelfromDB = card.getLabel(card);
                 maintextfromDB = card.getText(card);
-                List<String>options = new ArrayList<>();
+                List<String>options;
                 options = card.getOptions(card);
                 option1 = options.get(0);
                 option2 = options.get(1);
@@ -78,7 +79,6 @@ public class VoteWindow implements PassUsername{
         name2.setText(option2);
         name3.setText(option3);
         name4.setText(option4);
-        // Закрытие ресурсов не требуется, так как используется try-with-resources
     }
 
 
@@ -88,12 +88,12 @@ public class VoteWindow implements PassUsername{
         showVoteWindowEnd(clickedButton.getId());
     }
 
-    public void replaceButtonsWithLabels() {
+    public void replaceButtonsWithLabels(String buttonId) {
         // Создаем метки с теми же параметрами, что и у кнопок
-        Label label1 = createLabelFromButton(name1);
-        Label label2 = createLabelFromButton(name2);
-        Label label3 = createLabelFromButton(name3);
-        Label label4 = createLabelFromButton(name4);
+        Label label1 = createLabelFromButton(name1, buttonId);
+        Label label2 = createLabelFromButton(name2, buttonId);
+        Label label3 = createLabelFromButton(name3, buttonId);
+        Label label4 = createLabelFromButton(name4, buttonId);
 
         // Удаляем кнопки из AnchorPane
         anchorPane.getChildren().removeAll(name1, name2, name3, name4);
@@ -102,7 +102,7 @@ public class VoteWindow implements PassUsername{
         anchorPane.getChildren().addAll(label1, label2, label3, label4);
     }
 
-    private Label createLabelFromButton(Button button) {
+    private Label createLabelFromButton(Button button, String buttonId) {
         // Создаем новую метку и устанавливаем те же параметры, что и у кнопки
         Label label = new Label(button.getText());
         label.setLayoutX(button.getLayoutX());
@@ -110,12 +110,21 @@ public class VoteWindow implements PassUsername{
         label.setPrefWidth(button.getPrefWidth());
         label.setPrefHeight(button.getPrefHeight());
         label.setAlignment(button.getAlignment());
+        label.setId(button.getId());
+        label.setWrapText(true);
+        if(label.getId().equals(buttonId)){
+            label.setText("You voted for: " + button.getText() + ". Also " + VotingProcess.voting() + " people voted for this");
+        }
+        else{
+            label.setText(button.getText() + "\n" + VotingProcess.voting() + " people voted for this");
+        }
         label.setStyle("-fx-background-color: #e9e3ce; -fx-padding: 10; -fx-text-fill: black");
         // Здесь можно добавить любые другие необходимые стили или параметры
         return label;
     }
 
     private void showVoteWindowEnd(String buttonId) {
-        replaceButtonsWithLabels();
+        replaceButtonsWithLabels(buttonId);
+
     }
 }
