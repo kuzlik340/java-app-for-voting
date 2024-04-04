@@ -88,6 +88,11 @@ public class VoteWindow implements PassUsername{
         showVoteWindowEnd(clickedButton.getId());
     }
 
+    @FXML
+    private void passToMenuWindow(){
+        SceneManager.getInstance().loadScene("MenuWindow.fxml");
+    }
+
     public void replaceButtonsWithLabels(String buttonId) {
         // Создаем метки с теми же параметрами, что и у кнопок
         Label label1 = createLabelFromButton(name1, buttonId);

@@ -47,12 +47,6 @@
 
 <VBox prefHeight="400.0" stylesheets="@Style.css" prefWidth="640.0" xmlns="http://javafx.com/javafx/21"  xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.uvs.GUI.CreateNewAccount">
     <children>
-        <MenuBar VBox.vgrow="NEVER">
-            <menus>
-                <Menu mnemonicParsing="false" text="Back" onAction="#passBack">
-                </Menu>
-            </menus>
-        </MenuBar>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <children>
                 <PasswordField fx:id="passwordField" layoutX="135.0" layoutY="212.0" prefHeight="26.0" prefWidth="370.0" promptText="Password"/>

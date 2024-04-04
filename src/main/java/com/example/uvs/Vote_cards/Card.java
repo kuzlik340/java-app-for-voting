@@ -82,8 +82,8 @@ public static void CreateCards(String Label, String text, String option1, String
         pstmt.setString(2, text);
         pstmt.setString(3, option1);
         pstmt.setString(4, option2);
-        pstmt.setString(5, option2);
-        pstmt.setString(6, option2);
+        pstmt.setString(5, option3);
+        pstmt.setString(6, option4);
         pstmt.executeUpdate();
 
     } catch (Exception e) {

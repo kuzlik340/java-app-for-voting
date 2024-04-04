@@ -52,6 +52,11 @@
                         <MenuItem mnemonicParsing="false" onAction="#PassToLoginWindow" text="Log out" />
                     </items>
                 </Menu>
+                <Menu mnemonicParsing="false" text="Go back">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Go back" onAction="#passToMenuWindow"/>
+                    </items>
+                </Menu>
             </menus>
         </MenuBar>
         <ScrollPane fx:id = "scrollBar" styleClass="scroll-pane" VBox.vgrow="ALWAYS">

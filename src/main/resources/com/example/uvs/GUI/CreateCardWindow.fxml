@@ -49,6 +49,11 @@
                         <MenuItem mnemonicParsing="false" onAction="#PassToLoginWindow" text="Log out" />
                     </items>
                 </Menu>
+                <Menu fx:id="Back" mnemonicParsing="false" text="Go back">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Go back" onAction="#passToMenuWindow"/>
+                    </items>
+                </Menu>
             </menus>
         </MenuBar>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">

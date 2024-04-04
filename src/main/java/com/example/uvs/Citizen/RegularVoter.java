@@ -1,7 +1,6 @@
 package com.example.uvs.Citizen;
 
 import com.example.uvs.GUI.SceneManager;
-import com.example.uvs.Voting_logic.VotingProcess;
 
 public class RegularVoter extends Citizen implements ActionStrategy{
 
