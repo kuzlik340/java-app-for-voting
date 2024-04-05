@@ -1,5 +1,6 @@
 package com.example.uvs.GUI;
 
+import com.example.uvs.DataBase.DataBaseConnection;
 import com.example.uvs.Vote_cards.Card;
 import com.example.uvs.Voting_logic.VotingProcess;
 import javafx.fxml.FXML;
@@ -26,6 +27,9 @@ public class VoteWindow implements PassUsername{
     private String user;
     private String maintextfromDB, mainlabelfromDB, option1, option2, option3, option4;
     private int id;
+    private boolean alreadyVotedByThisuser = false;
+    private boolean voteEnded = false;
+    private int i = -1;
     List<Card> votingOpt = new ArrayList<>();
     @FXML
     ScrollPane scrollBar;
@@ -34,6 +38,17 @@ public class VoteWindow implements PassUsername{
     public void PassUser(String username) {
         this.user = username;
         userName.setText(user);
+        alreadyVotedByThisuser = VotingProcess.checkIfVoted(id, user);
+        voteEnded = VotingProcess.checkIfVoted3times(id);
+        System.out.println("screen = " + alreadyVotedByThisuser);
+        if (alreadyVotedByThisuser && !voteEnded){
+            System.out.println("alreadyVotedByThisuser");
+            replaceButtonsWithLabel();
+        }
+        else if(voteEnded){
+            System.out.println("VoteEnded");
+            showVoteWindowEnd("0");
+        }
     }
     @FXML
     private void PassToLoginWindow(){
@@ -85,12 +100,25 @@ public class VoteWindow implements PassUsername{
     @FXML
     private void passVote(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
-        showVoteWindowEnd(clickedButton.getId());
+        String buttonId = clickedButton.getId();
+        showVoteWindowEnd(buttonId);
+        DataBaseConnection.DataBaseInterface.userVoted(id, buttonId, user);
     }
 
     @FXML
     private void passToMenuWindow(){
         SceneManager.getInstance().loadScene("MenuWindow.fxml");
+    }
+    public void replaceButtonsWithLabel(){
+        anchorPane.getChildren().removeAll(name1, name2, name3, name4);
+        Label label = new Label();
+        label.setLayoutX(30);
+        label.setLayoutY(400);
+        label.setPrefWidth(500);
+        label.setPrefHeight(40);
+        label.setWrapText(true);
+        label.setText("You already voted!");
+        label.setStyle("-fx-background-color: #e9e3ce; -fx-padding: 10; -fx-text-fill: black");
     }
 
     public void replaceButtonsWithLabels(String buttonId) {
@@ -108,6 +136,7 @@ public class VoteWindow implements PassUsername{
     }
 
     private Label createLabelFromButton(Button button, String buttonId) {
+        i++;
         // Создаем новую метку и устанавливаем те же параметры, что и у кнопки
         Label label = new Label(button.getText());
         label.setLayoutX(button.getLayoutX());
@@ -118,10 +147,10 @@ public class VoteWindow implements PassUsername{
         label.setId(button.getId());
         label.setWrapText(true);
         if(label.getId().equals(buttonId)){
-            label.setText("You voted for: " + button.getText() + ". Also " + VotingProcess.voting() + " people voted for this");
+            label.setText("You voted for: " + button.getText() + ". Also " + VotingProcess.voting(id).get(i) + " people voted for this");
         }
         else{
-            label.setText(button.getText() + "\n" + VotingProcess.voting() + " people voted for this");
+            label.setText(button.getText() + "\n" + VotingProcess.voting(id).get(i) + " people voted for this");
         }
         label.setStyle("-fx-background-color: #e9e3ce; -fx-padding: 10; -fx-text-fill: black");
         // Здесь можно добавить любые другие необходимые стили или параметры

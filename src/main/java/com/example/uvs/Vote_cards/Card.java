@@ -20,83 +20,10 @@ public class Card {
         this.option4 = option4;
     }
     public static List<Card> getCards() {
-        // Предполагается, что класс Card имеет конструктор, принимающий две строки
-        List<Card> cards = new ArrayList<>();
-
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-
-        try {
-            conn = new DataBaseConnection().connect();
-            conn.setAutoCommit(false);
-
-            // Создаем SQL-запрос
-            String sql = "SELECT * FROM votecards";
-
-            // Выполняем запрос
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(sql);
-
-            // Итерируем по результатам запроса
-            while (rs.next()) {
-                // Извлекаем данные из текущей строки результата
-                String text1 = rs.getString("Label");
-                String text2 = rs.getString("text");
-                String option1 = rs.getString("option1");
-                String option2 = rs.getString("option2");
-                String option3 = rs.getString("option3");
-                String option4 = rs.getString("option4");
-                int ID = rs.getInt("ID");
-                Card card = new Card(text1, text2, ID, option1, option2, option3, option4);
-                cards.add(card);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (stmt != null) stmt.close();
-                if (conn != null) conn.close();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-        return cards;
+        return DataBaseConnection.DataBaseInterface.getCards();
     }
 public static void CreateCards(String Label, String text, String option1, String option2, String option3, String option4){
-    Connection conn = null;
-    Statement stmt = null;
-    ResultSet rs = null;
-
-        try {
-        conn = new DataBaseConnection().connect();
-
-        // Создаем SQL-запрос
-        String sql = "INSERT INTO votecards(Label, text, option1, option2, option3, option4) VALUES(?, ?, ?, ?, ?, ?)";
-
-        // Выполняем запрос
-
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, Label);
-        pstmt.setString(2, text);
-        pstmt.setString(3, option1);
-        pstmt.setString(4, option2);
-        pstmt.setString(5, option3);
-        pstmt.setString(6, option4);
-        pstmt.executeUpdate();
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    } finally {
-        try {
-            if (rs != null) rs.close();
-            if (stmt != null) stmt.close();
-            if (conn != null) conn.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+    DataBaseConnection.DataBaseInterface.CreateCards(Label, text, option1, option2, option3, option4);
 }
 
 
