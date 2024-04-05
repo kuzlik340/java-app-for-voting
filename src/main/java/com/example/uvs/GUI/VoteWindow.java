@@ -112,14 +112,17 @@ public class VoteWindow implements PassUsername{
     public void replaceButtonsWithLabel(){
         anchorPane.getChildren().removeAll(name1, name2, name3, name4);
         Label label = new Label();
-        label.setLayoutX(30);
-        label.setLayoutY(400);
-        label.setPrefWidth(500);
-        label.setPrefHeight(40);
+        label.setLayoutX(200);
+        label.setLayoutY(230);
+        label.setPrefWidth(300);
+        label.setPrefHeight(80);
         label.setWrapText(true);
         label.setText("You already voted!");
-        label.setStyle("-fx-background-color: #e9e3ce; -fx-padding: 10; -fx-text-fill: black");
+        // Задаем стиль с указанием размера шрифта
+        label.setStyle("-fx-padding: 30; -fx-text-fill: black; -fx-font-size: 16pt;");
+        anchorPane.getChildren().add(label);
     }
+
 
     public void replaceButtonsWithLabels(String buttonId) {
         // Создаем метки с теми же параметрами, что и у кнопок

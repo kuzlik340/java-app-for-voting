@@ -52,7 +52,7 @@
                 <PasswordField fx:id="passwordField" layoutX="135.0" layoutY="212.0" prefHeight="26.0" prefWidth="370.0" promptText="Password"/>
                 <AmbientLight color="CHARTREUSE" layoutX="111.0" layoutY="67.0" lightOn="true" />
                 <TextField fx:id="usernameField" layoutX="135.0" layoutY="152.0" prefHeight="26.0" prefWidth="370.0" promptText="Login"/>
-                <Button fx:id="createNewAccount" layoutX="218.0" layoutY="350.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="205.0" text="Create" onAction="#handleCreateNewUser"/>
+                <Button fx:id="createNewAccount" layoutX="218.0" layoutY="280.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="205.0" text="Create" onAction="#handleCreateNewUser"/>
                 <Label fx:id="ErrorLabel2" layoutX="206.0" layoutY="120.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="250.0" text="The login have to be your name and surname" visible="false" style="-fx-text-fill: red; -fx-font-size: 20px;"/>
                 <Label fx:id="ErrorLabel3" layoutX="206.0" layoutY="120.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="250.0" text="The password have to contain at least one digit and have to be more than 6 symbols" visible="false" style="-fx-text-fill: red; -fx-font-size: 20px;"/>
             </children>
