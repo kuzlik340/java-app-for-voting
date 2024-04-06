@@ -12,7 +12,7 @@ public class VotingProcess {
   }
   public static boolean checkIfVoted(int idVote, String login){
        //method to see if user already voted for this voting
-      return DataBaseConnection.DataBaseInterface.checkIfVoted(login, idVote);
+       return DataBaseConnection.DataBaseInterface.checkIfVoted(login, idVote);
   }
   public static boolean checkIfVoted3times(int idVote){
       //this method checks if voting card was already clicked three times that we can show the result of voting
