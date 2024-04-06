@@ -18,11 +18,13 @@ public class CreatingWindow implements PassUsername{
     private String user;
     @FXML
     private void PassToLoginWindow(){
-        SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
+        SceneManager.getInstance().loadScene("LogInWindow.fxml");
+        //setting login scene if user clicked on a button in menu bar
     }
 
     @Override
     public void PassUser(String username) {
+        //pass username to show it in left top side of window
         this.user = username;
         userName.setText(user);
     }
@@ -38,9 +40,9 @@ public class CreatingWindow implements PassUsername{
         String option2Input = option2.getText();
         String option3Input = option3.getText();
         String option4Input = option4.getText();
-
+        //function to create new voting card
         Card.CreateCards(titleInput, textInput, option1Input, option2Input, option3Input, option4Input);
-        title.clear();  //clearing fields if user will log out
+        title.clear();  //clearing fields if after creating new voting
         text.clear();
         option1.clear();
         option2.clear();

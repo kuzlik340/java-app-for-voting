@@ -29,24 +29,26 @@ public class VoteWindow implements PassUsername{
     private int id;
     private boolean alreadyVotedByThisuser = false;
     private boolean voteEnded = false;
-    private int i = -1;
+    private int i;
     List<Card> votingOpt = new ArrayList<>();
     @FXML
     ScrollPane scrollBar;
 
     @Override
     public void PassUser(String username) {
+        //pass username to show it in left top side of window
         this.user = username;
         userName.setText(user);
+        //checking if user already voted for this voting
         alreadyVotedByThisuser = VotingProcess.checkIfVoted(id, user);
+        //checking if voting was ended
         voteEnded = VotingProcess.checkIfVoted3times(id);
-        System.out.println("screen = " + alreadyVotedByThisuser);
         if (alreadyVotedByThisuser && !voteEnded){
-            System.out.println("alreadyVotedByThisuser");
+            //to display on window 'You already voted for this'
             replaceButtonsWithLabel();
         }
         else if(voteEnded){
-            System.out.println("VoteEnded");
+            //to show the results of voting
             showVoteWindowEnd("0");
         }
     }
@@ -57,25 +59,23 @@ public class VoteWindow implements PassUsername{
 
     @FXML
     private void initialize(){
-        scrollBar.setVvalue(-1.0);
+        scrollBar.setVvalue(-1.0); //setting scroll bar to top
     }
     public void setID(int ID) {
+        //setting id of what voting to show from database
         this.id = ID;
         System.out.println(id);
     }
 
     public void setList(List<Card> votingOpt){
        this.votingOpt = votingOpt;
-        System.out.println(votingOpt.get(0));
         settingTextFromDB(id);
     }
 
     public void settingTextFromDB(int id) {
-        // Переменные для хранения полученных данных, инициализация значений будет ниже
+        //setting all text on vote window
         for(Card card: votingOpt){
-            System.out.println(votingOpt.get(0).getLabel(card));
             if(card.getId(card) == id){
-                System.out.println("meow meow");
                 mainlabelfromDB = card.getLabel(card);
                 maintextfromDB = card.getText(card);
                 List<String>options;
@@ -99,6 +99,7 @@ public class VoteWindow implements PassUsername{
 
     @FXML
     private void passVote(ActionEvent event) {
+        //if some option was clicked we show the result of voting
         Button clickedButton = (Button) event.getSource();
         String buttonId = clickedButton.getId();
         showVoteWindowEnd(buttonId);
@@ -118,29 +119,29 @@ public class VoteWindow implements PassUsername{
         label.setPrefHeight(80);
         label.setWrapText(true);
         label.setText("You already voted!");
-        // Задаем стиль с указанием размера шрифта
         label.setStyle("-fx-padding: 30; -fx-text-fill: black; -fx-font-size: 16pt;");
         anchorPane.getChildren().add(label);
     }
 
 
     public void replaceButtonsWithLabels(String buttonId) {
-        // Создаем метки с теми же параметрами, что и у кнопок
+        i = -1;
+        //creating same labels as buttons
         Label label1 = createLabelFromButton(name1, buttonId);
         Label label2 = createLabelFromButton(name2, buttonId);
         Label label3 = createLabelFromButton(name3, buttonId);
         Label label4 = createLabelFromButton(name4, buttonId);
 
-        // Удаляем кнопки из AnchorPane
+        //deleteing buttons from anchorpane
         anchorPane.getChildren().removeAll(name1, name2, name3, name4);
 
-        // Добавляем новые метки в AnchorPane
+        //showing new labels on screen
         anchorPane.getChildren().addAll(label1, label2, label3, label4);
     }
 
     private Label createLabelFromButton(Button button, String buttonId) {
         i++;
-        // Создаем новую метку и устанавливаем те же параметры, что и у кнопки
+        //creating label that will be exact like button but will contain only results for voting
         Label label = new Label(button.getText());
         label.setLayoutX(button.getLayoutX());
         label.setLayoutY(button.getLayoutY());
@@ -156,7 +157,6 @@ public class VoteWindow implements PassUsername{
             label.setText(button.getText() + "\n" + VotingProcess.voting(id).get(i) + " people voted for this");
         }
         label.setStyle("-fx-background-color: #e9e3ce; -fx-padding: 10; -fx-text-fill: black");
-        // Здесь можно добавить любые другие необходимые стили или параметры
         return label;
     }
 

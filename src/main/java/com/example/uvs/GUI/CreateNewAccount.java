@@ -25,30 +25,30 @@ public class CreateNewAccount {
         ErrorLabel2.setVisible(false);
         ErrorLabel3.setVisible(false);
         if(!isLoginValid(username)){
-            usernameField.setStyle("-fx-border-color: red;");  //if user is not registered
+            usernameField.setStyle("-fx-border-color: red;");  //if login is not valid
             passwordField.setStyle("-fx-border-color: red;");
             ErrorLabel2.setVisible(true);
         }
         if(!isPasswordValid(password) && isLoginValid(username)){
-            usernameField.setStyle("-fx-border-color: red;");  //if user is not registered
+            usernameField.setStyle("-fx-border-color: red;");  //if password is not valid
             passwordField.setStyle("-fx-border-color: red;");
             ErrorLabel3.setVisible(true);
         }
         else if(isPasswordValid(password) && isLoginValid(username)){
             ErrorLabel2.setVisible(false);
             ErrorLabel3.setVisible(false);
-            Citizen user1 = new RegularVoter(username, password);
-            user1.addUser(username, password);
+            Citizen user1 = new RegularVoter(username, password); //creating new user
+            user1.addUser(username, password);  //adding user to database
             SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
         }
     }
     public static boolean isPasswordValid(String password) {
-        // Проверяем, что длина пароля не менее 6 символов и содержит хотя бы одну цифру
+        //checking if password is more than 6 symbols and contains at least one number
         return password.length() >= 6 && password.matches(".*\\d.*");
     }
 
     public static boolean isLoginValid(String login) {
-        // Проверяем, что логин не содержит цифр
+       //check if login does not contain numbers
         return !login.matches(".*\\d.*");
     }
 

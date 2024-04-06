@@ -31,10 +31,12 @@ public class MenuWindow implements PassUsername{
     @FXML
     private void PassToCreationWindow(){
         SceneManager.getInstance().loadScene("CreateCardWindow.fxml");
+        //if admin is signed he can pass to window where he can create new voting
     }
 
     @Override
     public void PassUser(String username) {
+        //pass username to show it in left top side of window
         this.user = username;
         userName.setText(user);
     }
@@ -43,6 +45,7 @@ public class MenuWindow implements PassUsername{
        votingMenu.getChildren().clear();
        double LayoutX  = 25.0;
        double LayoutY  = 22.0;
+       //setting all votings in menu window from database
        for (Card card: votingCards)
        {
            Button votingButton = new Button();
@@ -50,6 +53,7 @@ public class MenuWindow implements PassUsername{
            votingButton.setMinWidth(590.0);
            votingButton.setLayoutX(LayoutX);
            votingButton.setLayoutY(LayoutY);
+           //if button was clicked
            votingButton.setOnAction(event -> PassToVoteWindow(card.getId(card), votingCards));
            votingButton.setText(card.getName());
            votingMenu.getChildren().add(votingButton);
@@ -60,7 +64,7 @@ public class MenuWindow implements PassUsername{
 
     @FXML
     private void PassToVoteWindow(int ID, List<Card> votingCards){
-        SceneManager.getInstance().loadSceneWithIdInt("VoteWindow.fxml", ID, votingCards); //setting login scene
+        SceneManager.getInstance().loadSceneWithIdInt("VoteWindow.fxml", ID, votingCards); //setting voting scene
     }
     @FXML
     private void PassToLoginWindow(){

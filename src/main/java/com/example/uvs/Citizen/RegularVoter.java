@@ -10,5 +10,5 @@ public class RegularVoter extends Citizen implements ActionStrategy{
     @Override
     public void performAction() {
         SceneManager.getInstance().setSetVisibility(false);
-    }
+    }//polymorphism that is used in strategy pattern to hide admin button
 }

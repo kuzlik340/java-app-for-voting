@@ -14,17 +14,18 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
 import com.example.uvs.Vote_cards.Card;
+//singleton class to manage and show all scenes
 public class SceneManager {
-    private boolean setVisibility;
+    private boolean setVisibility; //variable for visibility of button for creating new voting
     private static SceneManager instance = new SceneManager();
     private Stage primaryStage;
-    private String user;
-    private Map<String, Object> controllers = new HashMap<>();
+    private String user;  //variable to save username so we can pass username to all windows
+                          //that are implementing 'PassUsername' interface
 
     private SceneManager() {}
 
     public static SceneManager getInstance() {
-        return instance;
+        return instance;  //returning singleton class
     }
 
     public void setPrimaryStage(Stage primaryStage) {
@@ -38,7 +39,6 @@ public class SceneManager {
     }
     public void setSetVisibility(boolean setting){
         this.setVisibility = setting;
-        System.out.println(setting);
     }
 
 
@@ -48,13 +48,12 @@ public class SceneManager {
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Object controller = loader.getController();
-            if (controller instanceof PassUsername) { // Передача username, если контроллер его поддерживает
+            if (controller instanceof PassUsername) { //pass username if controller implement PAssUsername
                 ((PassUsername) controller).PassUser(user);
             }
-            if (fxmlPath.equals("MenuWindow.fxml")) { // Передача username, если контроллер его поддерживает
+            if (fxmlPath.equals("MenuWindow.fxml")) { //setting visibility of button that is for admin
                 ((MenuWindow) controller).setVisibleCreating(setVisibility);
             }
-
             primaryStage.setScene(scene);
             primaryStage.show();
         }
@@ -66,13 +65,13 @@ public class SceneManager {
 
 
     public void loadSceneWithIdInt(String fxmlPath, int buttonId, List<Card> votingCards) {
-        try {
+        try {               //using this  method only for 'VoteWindow' cause we have to pass there button id
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Object controller = loader.getController();
-                ((VoteWindow) controller).setID(buttonId);
-                ((VoteWindow) controller).setList(votingCards); // Передаем buttonId
+            ((VoteWindow) controller).setID(buttonId);
+            ((VoteWindow) controller).setList(votingCards);
             ((PassUsername) controller).PassUser(user);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -87,8 +86,5 @@ public class SceneManager {
             alert.setHeaderText("Unexpected error. Please restart application");
             alert.setContentText(":(");
             alert.showAndWait();
-    }
-    public Object getController(String fxmlPath) {
-        return controllers.get(fxmlPath);
     }
 }

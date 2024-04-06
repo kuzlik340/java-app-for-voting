@@ -26,7 +26,7 @@ public class LogInController extends Application {
         showLogInWindow(primaryStage);
     }
     public static void showLogInWindow(Stage primaryStage) {
-        SceneManager.getInstance().setPrimaryStage(primaryStage); //initializing window to open an app\
+        SceneManager.getInstance().setPrimaryStage(primaryStage); //initializing window to open an app
         primaryStage.setResizable(false);
         SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
     }
@@ -40,7 +40,7 @@ public class LogInController extends Application {
         isRegistered = Citizen.checkLogInfo(username, password); //checking if user is registered in system or not
         isAdmin = Citizen.checkAdmin(username, password);
         if (isRegistered) {
-            if(isAdmin == 1){
+            if(isAdmin == 1){  //strategy pattern for regular voter and admin
                 actionStrategy = new Administrator(username, password);
             }
             else{
@@ -52,8 +52,8 @@ public class LogInController extends Application {
             usernameField.clear();  //clearing fields if user will log out
             passwordField.clear();
         } else {
-            ErrorLabel.setVisible(true);
-            usernameField.setStyle("-fx-border-color: red;");  //if user is not registered
+            ErrorLabel.setVisible(true);  //error label to show that user is not registered
+            usernameField.setStyle("-fx-border-color: red;");
             passwordField.setStyle("-fx-border-color: red;");
         }
 
@@ -61,10 +61,10 @@ public class LogInController extends Application {
 
     @FXML
     private void handlePassToCreateAction(){
-        SceneManager.getInstance().loadScene("CreateAccWindow.fxml"); //setting login scene
+        SceneManager.getInstance().loadScene("CreateAccWindow.fxml"); //pass to scene where user can create a new account
     }
 
     public static void main(String[] args) {
-        launch();
+        launch();    //launching JavaFX
     }
 }
