@@ -125,6 +125,17 @@ public class VoteWindow implements PassUsername{
 
 
     public void replaceButtonsWithLabels(String buttonId) {
+        Label label = new Label();
+        label.setVisible(false);
+        if(buttonId.equals("0")){
+            label.setText("This voting ended");
+            label.setLayoutX(210);
+            label.setLayoutY(220);
+            label.setPrefWidth(210);
+            label.setPrefHeight(40);
+            label.setStyle(" -fx-padding: 10; -fx-text-fill: black; -fx-font-size: 20");
+            label.setVisible(true);
+        }
         i = -1;
         //creating same labels as buttons
         Label label1 = createLabelFromButton(name1, buttonId);
@@ -136,7 +147,7 @@ public class VoteWindow implements PassUsername{
         anchorPane.getChildren().removeAll(name1, name2, name3, name4);
 
         //showing new labels on screen
-        anchorPane.getChildren().addAll(label1, label2, label3, label4);
+        anchorPane.getChildren().addAll(label1, label2, label3, label4, label);
     }
 
     private Label createLabelFromButton(Button button, String buttonId) {
@@ -144,7 +155,7 @@ public class VoteWindow implements PassUsername{
         //creating label that will be exact like button but will contain only results for voting
         Label label = new Label(button.getText());
         label.setLayoutX(button.getLayoutX());
-        label.setLayoutY(button.getLayoutY());
+        label.setLayoutY(button.getLayoutY()+30);
         label.setPrefWidth(button.getPrefWidth());
         label.setPrefHeight(button.getPrefHeight());
         label.setAlignment(button.getAlignment());
