@@ -47,7 +47,7 @@ public class LogInController extends Application {
                 actionStrategy = new RegularVoter(username, password);
             }
             SceneManager.getInstance().setUsername(username); //pass to menu window
-            actionStrategy.performAction();
+            actionStrategy.performAction(); //start of perfrom action for two types of users
             SceneManager.getInstance().loadScene("MenuWindow.fxml");
             usernameField.clear();  //clearing fields if user will log out
             passwordField.clear();
