@@ -89,6 +89,31 @@ public class DataBaseConnection {
             }
             return -1; // Returns -1 if user is not found or an error occurs.
         }
+        public static boolean checkPassword(String login, String password) throws PasswordInCorrectException{
+            String sqlSelect = "SELECT password FROM users WHERE login = ?";
+            String storedPassword;
+            try (Connection conn = new DataBaseConnection().connect();
+                 PreparedStatement pstmt = conn.prepareStatement(sqlSelect)) {
+
+                pstmt.setString(1, login);
+
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        storedPassword = rs.getString("password");
+                        if(!storedPassword.equals(password)){
+                            throw new PasswordInCorrectException("Password not correct for user: " + login);
+                        }
+                        else{
+                            return true;
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+            return false;
+        }
+
 
         // Adds a new user to the database.
         public static void addUser(String login, String password) {

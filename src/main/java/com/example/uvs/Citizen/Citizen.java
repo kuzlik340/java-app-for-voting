@@ -1,5 +1,6 @@
 package com.example.uvs.Citizen;
 import com.example.uvs.DataBase.DataBaseConnection;
+import com.example.uvs.DataBase.PasswordInCorrectException;
 
 public abstract class Citizen {
     protected int id;    //abstract class for voters and admin
@@ -19,12 +20,16 @@ public abstract class Citizen {
         return DataBaseConnection.DataBaseInterface.checkAdmin(login, password);
     }  //method to check if user is admin
 
+    public static boolean checkPassword(String login, String password) throws PasswordInCorrectException {
+        return DataBaseConnection.DataBaseInterface.checkPassword(login, password);
+    }
+
     public String getLogin() {
         return login;
     } //get username info
     public void addUser(String login, String password) {
         DataBaseConnection.DataBaseInterface.addUser(login, password);
-    } //methos to add a new user to system
+    } //method to add a new user to system
     public abstract void performAction();
 
 

@@ -4,19 +4,22 @@ import com.example.uvs.Citizen.ActionStrategy;
 import com.example.uvs.Citizen.Administrator;
 import com.example.uvs.Citizen.Citizen;
 import com.example.uvs.Citizen.RegularVoter;
+import com.example.uvs.DataBase.PasswordInCorrectException;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
 
 public class LogInController extends Application {
     @FXML
     private TextField usernameField, passwordField;
     @FXML
-    private Label ErrorLabel;
+    private Label ErrorLabel, ErrorLabel4;
     boolean isRegistered;
+    boolean isCorrect;
     int isAdmin;
     private String username;
     private ActionStrategy actionStrategy;
@@ -32,13 +35,25 @@ public class LogInController extends Application {
     }
 
     @FXML
-    private void handleLoginAction(){
+    private void handleLoginAction() throws PasswordInCorrectException {
         username = usernameField.getText();
         String password = passwordField.getText();
         ErrorLabel.setVisible(false);
+        ErrorLabel4.setVisible(false);
+
 
         isRegistered = Citizen.checkLogInfo(username, password); //checking if user is registered in system or not
         isAdmin = Citizen.checkAdmin(username, password);
+        try{
+            Citizen.checkPassword(username, password);
+        }
+        catch (PasswordInCorrectException e){
+            ErrorLabel4.setVisible(true);  //error label to show that user is not registered
+            usernameField.setStyle("-fx-border-color: red;");
+            passwordField.setStyle("-fx-border-color: red;");
+            System.out.println("incorrect password exception catched");
+            return;
+        }
         if (isRegistered) {
             if(isAdmin == 1){  //strategy pattern for regular voter and admin
                 actionStrategy = new Administrator(username, password);
