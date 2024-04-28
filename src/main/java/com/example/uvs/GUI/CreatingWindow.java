@@ -1,4 +1,5 @@
 package com.example.uvs.GUI;
+import com.example.uvs.Citizen.UserSession;
 import com.example.uvs.DataBase.DataBaseConnection;
 import com.example.uvs.Vote_cards.Card;
 import javafx.fxml.FXML;
@@ -18,7 +19,9 @@ public class CreatingWindow implements PassUsername{
     private String user;
     @FXML
     private void PassToLoginWindow(){
-        SceneManager.getInstance().loadScene("LogInWindow.fxml");
+        UserSession.getInstance().setStarted(false, null, null);
+        LogInController.serializeSession(UserSession.getInstance());
+        SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
         //setting login scene if user clicked on a button in menu bar
     }
 

@@ -54,10 +54,8 @@
                 <TextField fx:id="usernameField" layoutX="135.0" layoutY="152.0" prefHeight="26.0" prefWidth="370.0" promptText="Login"/>
                 <Button fx:id="loginButton" layoutX="218.0" layoutY="250.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="205.0" text="Log in" onAction="#handleLoginAction"/>
                 <Button fx:id="createNewAccount" layoutX="218.0" layoutY="285.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="205.0" text="Create new account" onAction="#handlePassToCreateAction"/>
-                <Label fx:id="ErrorLabel" layoutX="206.0" layoutY="120.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="250.0" text="This account is not registered" visible="false" style="-fx-text-fill: red; -fx-font-size: 20px;"/>
-                <Label fx:id="ErrorLabel2" layoutX="206.0" layoutY="120.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="250.0" text="The login have to be your name and surname" visible="false" style="-fx-text-fill: red; -fx-font-size: 20px;"/>
-                <Label fx:id="ErrorLabel3" layoutX="206.0" layoutY="120.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="250.0" text="The password have to contain at least one digit and have to be more than 6 symbols" visible="false" style="-fx-text-fill: red; -fx-font-size: 20px;"/>
-                <Label fx:id="ErrorLabel4" layoutX="206.0" layoutY="120.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="250.0" text="Incorrect password" visible="false" style="-fx-text-fill: red; -fx-font-size: 20px;"/>
+                <Label fx:id="ErrorLabelNotRegistered" layoutX="206.0" layoutY="120.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="250.0" text="This account is not registered" visible="false" style="-fx-text-fill: red; -fx-font-size: 20px;"/>
+                <Label fx:id="ErrorLabelIncorrectPassword" layoutX="206.0" layoutY="120.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="250.0" text="Incorrect password" visible="false" style="-fx-text-fill: red; -fx-font-size: 20px;"/>
             </children>
         </AnchorPane>
     </children>

@@ -1,5 +1,6 @@
 package com.example.uvs.GUI;
 
+import com.example.uvs.Citizen.UserSession;
 import com.example.uvs.DataBase.DataBaseConnection;
 import com.example.uvs.Vote_cards.Card;
 import com.example.uvs.Voting_logic.VotingProcess;
@@ -54,6 +55,8 @@ public class VoteWindow implements PassUsername{
     }
     @FXML
     private void PassToLoginWindow(){
+        UserSession.getInstance().setStarted(false, null, null);
+        LogInController.serializeSession(UserSession.getInstance());
         SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
     }
 

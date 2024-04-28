@@ -5,6 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 // This class provides the methods for connecting to and interacting with the database.
 public class DataBaseConnection {
     // Connects to the SQLite database and returns the connection object.
