@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.function.Supplier;
 
 
 public class LogInController extends Application {
@@ -24,14 +25,14 @@ public class LogInController extends Application {
     @Override
     public void start(Stage primaryStage) {
         showLogInWindow(primaryStage);
-        String[] serializedCredentials = checkifSerialized();
+        String[] serializedCredentials = checkifSerialized.get(); //lambda function
         if (serializedCredentials[0] != null && serializedCredentials[1] != null) {
             System.out.println("Serialized found");
             // If serialized credentials exist, perform login action with these credentials
             username = serializedCredentials[0];
             password = serializedCredentials[1];
             isAdmin = Citizen.checkAdmin(username, password);
-            if(isAdmin == 1){  //strategy pattern for regular voter and admin
+            if(isAdmin == 1){                      //strategy pattern for regular voter and admin
                 actionStrategy = new Administrator(username, password);
             }
             else{
@@ -102,7 +103,7 @@ public class LogInController extends Application {
             e.printStackTrace();
         }
     }
-    private String[] checkifSerialized(){
+    private Supplier<String[]> checkifSerialized = () -> {
         String[] credentials = new String[2];
 
         UserSession deserializedSession = deserializeSession();
@@ -113,7 +114,8 @@ public class LogInController extends Application {
         }
 
         return credentials;
-    }
+    };
+
 
     private UserSession deserializeSession() {
         UserSession session = null;
