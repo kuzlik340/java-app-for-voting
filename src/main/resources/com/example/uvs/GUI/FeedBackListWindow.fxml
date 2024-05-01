@@ -40,7 +40,8 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.TextArea?>
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.uvs.GUI.FeedBackWindow" stylesheets="@Style2.css">
+<?import javafx.scene.control.ScrollPane?>
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.uvs.GUI.FeedBackListsWindow" stylesheets="@Style2.css">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
@@ -56,11 +57,12 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+        <ScrollPane VBox.vgrow="ALWAYS" styleClass="scroll-pane">
+        <AnchorPane fx:id="feedbackMenu" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <children>
-                <TextArea fx:id="feedbacktext" layoutX="31.0" layoutY="18.0" prefHeight="214.0" prefWidth="579.0" />
-                <Button fx:id="createFeedback" layoutX="242.0" layoutY="285.0" mnemonicParsing="false" onAction="#addNewFeedback" prefHeight="28.0" prefWidth="157.0" text="Send feedback" />
+
             </children>
         </AnchorPane>
+        </ScrollPane>
     </children>
 </VBox>

@@ -8,7 +8,9 @@ public class Card {
     private int IdOfCard;
     private String name, infoOfObject, option1, option2, option3, option4;
 
+    public Card(){
 
+    }
     public Card(String name, String info, int ID, String option1, String option2, String option3, String option4){
         //setting card by this constructor
         this.name = name;

@@ -14,12 +14,19 @@
                     <items>
                         <MenuItem mnemonicParsing="false" text="Log out" onAction="#PassToLoginWindow"/>
                     </items>
+                    <Menu fx:id="adminfeatures" visible="false" mnemonicParsing="false" text="Create new voting">
+                        <items>
+                            <MenuItem mnemonicParsing="false" text="Create" onAction="#PassToCreationWindow"/>
+                            <MenuItem mnemonicParsing="false" text="Check FeedBacks on App" onAction="#PassToAllFeedBacksWindow"/>
+                        </items>
+                    </Menu>
+                    <Menu fx:id="feedback" mnemonicParsing="false" text="feedback!">
+                        <items>
+                            <MenuItem mnemonicParsing="false" text="Create" onAction="#PassToFeedBackWindow"/>
+                        </items>
+                    </Menu>
                 </Menu>
-                <Menu fx:id="createNewVote" visible="false" mnemonicParsing="false" text="Create new voting">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Create" onAction="#PassToCreationWindow"/>
-                    </items>
-                </Menu>
+
             </menus>
         </MenuBar>
         <ScrollPane VBox.vgrow="ALWAYS" styleClass="scroll-pane">

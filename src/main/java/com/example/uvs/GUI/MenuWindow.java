@@ -14,7 +14,7 @@ import java.util.List;
 
 public class MenuWindow implements PassUsername{
     @FXML
-    private Menu userName, createNewVote;
+    private Menu userName, adminfeatures;
     private String user;
 
     @FXML
@@ -27,12 +27,16 @@ public class MenuWindow implements PassUsername{
         getVotings();
     }
     public void setVisibleCreating(boolean setVisibility){
-        createNewVote.setVisible(setVisibility);
+        adminfeatures.setVisible(setVisibility);
     }
     @FXML
     private void PassToCreationWindow(){
         SceneManager.getInstance().loadScene("CreateCardWindow.fxml");
         //if admin is signed he can pass to window where he can create new voting
+    }
+    @FXML
+    public void PassToAllFeedBacksWindow(){
+        SceneManager.getInstance().loadScene("FeedBackListWindow.fxml");
     }
 
     @Override
@@ -61,6 +65,10 @@ public class MenuWindow implements PassUsername{
            LayoutY += 100;
        }
 
+    }
+    @FXML
+    private void PassToFeedBackWindow(){
+        SceneManager.getInstance().loadScene("FeedBackWindow.fxml"); //setting voting scene
     }
 
     @FXML

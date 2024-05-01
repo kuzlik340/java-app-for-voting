@@ -38,6 +38,7 @@ public class LogInController extends Application {
                 actionStrategy = new RegularVoter(username, password);
             }
             actionStrategy.performAction(); //start of perfrom action for two types of users
+            UserSession.getInstance().setStarted(true, serializedCredentials[0], serializedCredentials[1]);
             SceneManager.getInstance().setUsername(serializedCredentials[0]); //pass to menu window
             SceneManager.getInstance().setPrimaryStage(primaryStage); //initializing window to open an app
             primaryStage.setResizable(false);

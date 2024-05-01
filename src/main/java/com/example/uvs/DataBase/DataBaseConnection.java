@@ -1,9 +1,12 @@
 package com.example.uvs.DataBase;
+import com.example.uvs.FeedBacks.FeedBackForApp;
 import com.example.uvs.Vote_cards.Card;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 // This class provides the methods for connecting to and interacting with the database.
@@ -337,6 +340,41 @@ public class DataBaseConnection {
                 }
             }
         }
+        public static void addFeedback(String id, String feedbackText) {
+            String sqlInsert = "INSERT INTO FeedBackforApp (id, feedback) VALUES (?, ?)";
+
+            try (Connection conn = new DataBaseConnection().connect();
+                 PreparedStatement pstmt = conn.prepareStatement(sqlInsert)) {
+
+                pstmt.setString(1, id);
+                pstmt.setString(2, feedbackText);
+
+                pstmt.executeUpdate();
+
+            } catch (SQLException e) {
+                System.out.println("Error occurred: " + e.getMessage());
+            }
+        }
+        public static List<FeedBackForApp> getFeedback() {
+            List<FeedBackForApp> feedbackList = new ArrayList<>();
+            String sqlSelect = "SELECT id, feedback FROM FeedBackforApp";
+
+            try (Connection conn = new DataBaseConnection().connect();
+                 PreparedStatement pstmt = conn.prepareStatement(sqlSelect);
+                 ResultSet rs = pstmt.executeQuery()) {
+
+                while (rs.next()) {
+                    System.out.println("Feedback from db");
+                    String id = rs.getString("id");
+                    String feedback = rs.getString("feedback");
+                    feedbackList.add(new FeedBackForApp(id, feedback));
+                }
+            } catch (SQLException e) {
+                System.out.println("Error occurred: " + e.getMessage());
+            }
+            return feedbackList;
+        }
+
 
     }
 }

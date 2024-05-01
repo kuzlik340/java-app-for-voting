@@ -1,2 +1,4 @@
-package com.example.uvs.FeedBacks;public class FeedBackForVoting {
+package com.example.uvs.FeedBacks;
+
+public class FeedBackForVoting {
 }
