@@ -36,6 +36,7 @@ public class MenuWindow implements PassUsername{
     }
     @FXML
     public void PassToAllFeedBacksWindow(){
+        SceneManager.getInstance().feedbacktype(false);
         SceneManager.getInstance().loadScene("FeedBackListWindow.fxml");
     }
 
@@ -44,6 +45,11 @@ public class MenuWindow implements PassUsername{
         //pass username to show it in left top side of window
         this.user = username;
         userName.setText(user);
+    }
+    @FXML
+    public void PassToAllFeedBacksVotingWindow(){
+        SceneManager.getInstance().feedbacktype(true);
+        SceneManager.getInstance().loadScene("FeedBackListWindow.fxml");
     }
     @FXML
     public void getVotings(){

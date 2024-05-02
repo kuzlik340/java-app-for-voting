@@ -68,6 +68,7 @@
                     <Button fx:id="name2" layoutX="340.0" layoutY="399.0" mnemonicParsing="false" onAction="#passVote" prefHeight="134.0" prefWidth="280.0" text="Button" />
                     <Button fx:id="name3" layoutX="20.0" layoutY="399.0" mnemonicParsing="false" onAction="#passVote" prefHeight="134.0" prefWidth="280.0" text="Button" />
                     <Button fx:id="name4" layoutX="340.0" layoutY="230.0" mnemonicParsing="false" onAction="#passVote" prefHeight="134.0" prefWidth="280.0" text="Button" />
+                    <Button fx:id="feedbackButton" layoutX="20.0" layoutY="560.0" mnemonicParsing="false" onAction="#passFeedBack" prefHeight="40.0" prefWidth="600.0" text="Send feedback for this voting" />
                </children>
             </AnchorPane>
          <padding>

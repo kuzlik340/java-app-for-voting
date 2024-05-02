@@ -14,10 +14,11 @@
                     <items>
                         <MenuItem mnemonicParsing="false" text="Log out" onAction="#PassToLoginWindow"/>
                     </items>
-                    <Menu fx:id="adminfeatures" visible="false" mnemonicParsing="false" text="Create new voting">
+                    <Menu fx:id="adminfeatures" visible="false" mnemonicParsing="false" text="Admin features">
                         <items>
-                            <MenuItem mnemonicParsing="false" text="Create" onAction="#PassToCreationWindow"/>
+                            <MenuItem mnemonicParsing="false" text="Create new voting" onAction="#PassToCreationWindow"/>
                             <MenuItem mnemonicParsing="false" text="Check FeedBacks on App" onAction="#PassToAllFeedBacksWindow"/>
+                            <MenuItem mnemonicParsing="false" text="Check FeedBacks on Votings" onAction="#PassToAllFeedBacksVotingWindow"/>
                         </items>
                     </Menu>
                     <Menu fx:id="feedback" mnemonicParsing="false" text="feedback!">

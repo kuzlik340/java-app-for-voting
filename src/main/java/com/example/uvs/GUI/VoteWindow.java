@@ -125,7 +125,11 @@ public class VoteWindow implements PassUsername{
         label.setStyle("-fx-padding: 30; -fx-text-fill: black; -fx-font-size: 16pt;");
         anchorPane.getChildren().add(label);
     }
-
+    @FXML
+    private void passFeedBack(){
+        SceneManager.getInstance().setSetVisibilityofFeed(true);
+        SceneManager.getInstance().loadScene("FeedBackWindow.fxml");
+    }
 
     public void replaceButtonsWithLabels(String buttonId) {
         Label label = new Label();

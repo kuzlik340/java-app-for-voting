@@ -4,8 +4,9 @@ import com.example.uvs.DataBase.DataBaseConnection;
 
 import java.util.List;
 
-public class FeedBackForApp {
+public class FeedBackForApp implements ActionStrategy2{
     private String login;
+    private String id;
     private String feedback;
     List<FeedBackForApp> feedbackMap;
     public void addFeedBack(String feedbackText, String id){
@@ -24,6 +25,10 @@ public class FeedBackForApp {
     public String getFeedText(){
         return feedback;
     }
+    public String getNameOfVote(){
+        return "";
+    }
+
 
     public  List<FeedBackForApp> getFeedbackText() {
         feedbackMap = DataBaseConnection.DataBaseInterface.getFeedback("FeedBackforApp");

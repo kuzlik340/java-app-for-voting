@@ -17,6 +17,8 @@ import com.example.uvs.Vote_cards.Card;
 //singleton class to manage and show all scenes
 public class SceneManager {
     private boolean setVisibility; //variable for visibility of button for creating new voting
+    private boolean visibilityOfFeed = false;
+    private boolean isFeedbackVoting = false;
     private static SceneManager instance = new SceneManager();
     private Stage primaryStage;
     private String user;  //variable to save username so we can pass username to all windows
@@ -40,7 +42,14 @@ public class SceneManager {
     public void setSetVisibility(boolean setting){
         this.setVisibility = setting;
     }
-
+    public void setSetVisibilityofFeed(boolean setting){
+        this.visibilityOfFeed = setting;
+        System.out.println(setting);
+    }
+    public void feedbacktype(boolean type){
+        this.isFeedbackVoting = type;
+        System.out.println("FROM scenemanager = "+ type);
+    }
 
     public void loadScene(String fxmlPath){
         try{
@@ -54,6 +63,13 @@ public class SceneManager {
             if (fxmlPath.equals("MenuWindow.fxml")) { //setting visibility of button that is for admin
                 ((MenuWindow) controller).setVisibleCreating(setVisibility);
             }
+            if (fxmlPath.equals("FeedBackWindow.fxml")) { //setting visibility of button that is for admin
+                ((FeedBackWindow) controller).setVisibleTextField(visibilityOfFeed);
+            }
+            if (fxmlPath.equals("FeedBackListWindow.fxml")) { //setting visibility of button that is for admin
+                ((FeedBackListsWindow) controller).setType(isFeedbackVoting);
+            }
+
             primaryStage.setScene(scene);
             primaryStage.show();
         }

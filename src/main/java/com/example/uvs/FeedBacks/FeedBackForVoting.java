@@ -4,7 +4,7 @@ import com.example.uvs.DataBase.DataBaseConnection;
 
 import java.util.List;
 
-public class FeedBackForVoting extends FeedBackForApp{
+public class FeedBackForVoting extends FeedBackForApp implements ActionStrategy2{
     private String id;
     private String feedback;
     private String nameVote;
@@ -16,10 +16,22 @@ public class FeedBackForVoting extends FeedBackForApp{
           this.feedback = feedback;
           this.nameVote = nameVote;
     }
+    public FeedBackForVoting(){
 
+    }
+
+    public String getLogin(){
+        return this.id;
+    }
+    public String getFeedText(){
+        return this.feedback;
+    }
+    public String getNameOfVote(){
+        return this.nameVote;
+    }
     @Override
     public List<FeedBackForApp> getFeedbackText() {
-        feedbackMap = DataBaseConnection.DataBaseInterface.getFeedback("FeedBackforApp");
+        feedbackMap = DataBaseConnection.DataBaseInterface.getFeedback("FeedBackforVotings");
         return feedbackMap;
     }
 

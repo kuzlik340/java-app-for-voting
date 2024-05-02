@@ -404,6 +404,7 @@ public class DataBaseConnection {
                         String id = rs.getString("id");
                         String feedback = rs.getString("feedback");
                         feedbackList.add(new FeedBackForVoting(id, feedback, nameVote));
+                        System.out.println(id + " " + feedback + " " + nameVote);
                     }
                 } catch (SQLException e) {
                     System.out.println("Error occurred: " + e.getMessage());
