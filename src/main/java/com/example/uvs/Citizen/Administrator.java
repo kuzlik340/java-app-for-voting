@@ -7,11 +7,13 @@ public class Administrator extends Citizen implements ActionStrategy{
     public Administrator(String login, String password) {
         super(login, password);
     }
-
+    ActionStrategy actionStrategy = () -> {
+        SceneManager.getInstance().setSetVisibility(true);
+    };
 
     @Override
     public void performAction() {
-        SceneManager.getInstance().setSetVisibility(true);
+        actionStrategy.performAction();
     }
 }  //polymorphism that is used in strategy pattern to show admin button
 

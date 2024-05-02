@@ -48,7 +48,7 @@ public class SceneManager {
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Object controller = loader.getController();
-            if (controller instanceof PassUsername) { //pass username if controller implement PAssUsername
+            if (controller instanceof PassUsername) { //pass username if controller implement PAssUsername RTTI
                 ((PassUsername) controller).PassUser(user);
             }
             if (fxmlPath.equals("MenuWindow.fxml")) { //setting visibility of button that is for admin

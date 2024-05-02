@@ -2,16 +2,12 @@ package com.example.uvs.GUI;
 
 import com.example.uvs.Citizen.UserSession;
 import com.example.uvs.FeedBacks.FeedBackForApp;
-import com.example.uvs.Vote_cards.Card;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.List;
-import java.util.Map;
 
 public class FeedBackListsWindow {
     @FXML

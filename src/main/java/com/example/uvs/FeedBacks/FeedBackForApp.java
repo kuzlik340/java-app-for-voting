@@ -3,14 +3,13 @@ package com.example.uvs.FeedBacks;
 import com.example.uvs.DataBase.DataBaseConnection;
 
 import java.util.List;
-import java.util.Map;
 
 public class FeedBackForApp {
     private String login;
     private String feedback;
     List<FeedBackForApp> feedbackMap;
     public void addFeedBack(String feedbackText, String id){
-        DataBaseConnection.DataBaseInterface.addFeedback(id, feedbackText);
+        DataBaseConnection.DataBaseInterface.addFeedback("-", id, feedbackText, "FeedBackforApp");
     }
     public FeedBackForApp(){
 
@@ -26,9 +25,8 @@ public class FeedBackForApp {
         return feedback;
     }
 
-
     public  List<FeedBackForApp> getFeedbackText() {
-        feedbackMap = DataBaseConnection.DataBaseInterface.getFeedback();
+        feedbackMap = DataBaseConnection.DataBaseInterface.getFeedback("FeedBackforApp");
         return feedbackMap;
     }
 

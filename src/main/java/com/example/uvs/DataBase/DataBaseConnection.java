@@ -1,5 +1,6 @@
 package com.example.uvs.DataBase;
 import com.example.uvs.FeedBacks.FeedBackForApp;
+import com.example.uvs.FeedBacks.FeedBackForVoting;
 import com.example.uvs.Vote_cards.Card;
 
 import java.sql.*;
@@ -340,39 +341,75 @@ public class DataBaseConnection {
                 }
             }
         }
-        public static void addFeedback(String id, String feedbackText) {
-            String sqlInsert = "INSERT INTO FeedBackforApp (id, feedback) VALUES (?, ?)";
+        public static void addFeedback(String idOfVote, String id, String feedbackText, String nameDB) {
+            if(idOfVote.equals("-")){
+                String sqlInsert = "INSERT INTO "+ nameDB + " (id, feedback) VALUES (?, ?)";
 
-            try (Connection conn = new DataBaseConnection().connect();
-                 PreparedStatement pstmt = conn.prepareStatement(sqlInsert)) {
+                try (Connection conn = new DataBaseConnection().connect();
+                     PreparedStatement pstmt = conn.prepareStatement(sqlInsert)) {
+                    pstmt.setString(1, id); // Bind the 'id' parameter
+                    pstmt.setString(2, feedbackText); // Bind the 'feedbackText' parameter
 
-                pstmt.setString(1, id);
-                pstmt.setString(2, feedbackText);
+                    pstmt.executeUpdate();
 
-                pstmt.executeUpdate();
+                } catch (SQLException e) {
+                    System.out.println("Error occurred: " + e.getMessage());
+                }
+            }
+            else{
+                String sqlInsert = "INSERT INTO "+ nameDB + " (id, feedback, idOfVote) VALUES (?, ?, ?)";
 
-            } catch (SQLException e) {
-                System.out.println("Error occurred: " + e.getMessage());
+                try (Connection conn = new DataBaseConnection().connect();
+                     PreparedStatement pstmt = conn.prepareStatement(sqlInsert)) {
+                    pstmt.setString(1, id); // Bind the 'id' parameter
+                    pstmt.setString(2, feedbackText); // Bind the 'feedbackText' parameter
+                    pstmt.setString(3, idOfVote); // Bind the 'feedbackText' parameter
+
+                    pstmt.executeUpdate();
+
+                } catch (SQLException e) {
+                    System.out.println("Error occurred: " + e.getMessage());
+                }
             }
         }
-        public static List<FeedBackForApp> getFeedback() {
-            List<FeedBackForApp> feedbackList = new ArrayList<>();
-            String sqlSelect = "SELECT id, feedback FROM FeedBackforApp";
+        public static List<FeedBackForApp> getFeedback(String nameDB) {
+            if(nameDB.equals("FeedBackforApp")){
+                List<FeedBackForApp> feedbackList = new ArrayList<>();
+                String sqlSelect = "SELECT id, feedback FROM " + nameDB;
 
-            try (Connection conn = new DataBaseConnection().connect();
-                 PreparedStatement pstmt = conn.prepareStatement(sqlSelect);
-                 ResultSet rs = pstmt.executeQuery()) {
-
-                while (rs.next()) {
-                    System.out.println("Feedback from db");
-                    String id = rs.getString("id");
-                    String feedback = rs.getString("feedback");
-                    feedbackList.add(new FeedBackForApp(id, feedback));
+                try (Connection conn = new DataBaseConnection().connect();
+                     PreparedStatement pstmt = conn.prepareStatement(sqlSelect);
+                     ResultSet rs = pstmt.executeQuery()) {
+                    while (rs.next()) {
+                        System.out.println("Feedback from db");
+                        String id = rs.getString("id");
+                        String feedback = rs.getString("feedback");
+                        feedbackList.add(new FeedBackForApp(id, feedback));
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Error occurred: " + e.getMessage());
                 }
-            } catch (SQLException e) {
-                System.out.println("Error occurred: " + e.getMessage());
+                return feedbackList;
             }
-            return feedbackList;
+            else{
+                List<FeedBackForApp> feedbackList = new ArrayList<>();
+                String sqlSelect = "SELECT idOfVote, id, feedback FROM " + nameDB;
+
+                try (Connection conn = new DataBaseConnection().connect();
+                     PreparedStatement pstmt = conn.prepareStatement(sqlSelect);
+                     ResultSet rs = pstmt.executeQuery()) {
+                    while (rs.next()) {
+                        System.out.println("Feedback from db");
+                        String nameVote = rs.getString("idOfVote");
+                        String id = rs.getString("id");
+                        String feedback = rs.getString("feedback");
+                        feedbackList.add(new FeedBackForVoting(id, feedback, nameVote));
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Error occurred: " + e.getMessage());
+                }
+                return feedbackList;
+            }
         }
 
 
