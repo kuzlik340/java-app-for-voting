@@ -122,8 +122,18 @@ public class VoteWindow implements PassUsername{
         label.setPrefHeight(80);
         label.setWrapText(true);
         label.setText("You already voted!");
+        Label remainingtime = new Label();
+        remainingtime.setLayoutX(20);
+        remainingtime.setLayoutY(300);
+        remainingtime.setPrefWidth(550);
+        remainingtime.setPrefHeight(200);
+        remainingtime.setWrapText(true);
+        String time = VotingProcess.getRemainingTime(id);
+        remainingtime.setText(time);
         label.setStyle("-fx-padding: 30; -fx-text-fill: black; -fx-font-size: 16pt;");
+        remainingtime.setStyle("-fx-padding: 30; -fx-text-fill: black; -fx-font-size: 16pt;");
         anchorPane.getChildren().add(label);
+        anchorPane.getChildren().add(remainingtime);
     }
     @FXML
     private void passFeedBack(){

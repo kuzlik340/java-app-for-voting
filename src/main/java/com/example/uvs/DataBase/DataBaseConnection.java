@@ -256,6 +256,29 @@ public class DataBaseConnection {
             }
             return votes;
         }
+        public static void setCounter(int idOfVote, int counterValue) {
+            String sql = "UPDATE votecards SET " +
+                    "votecounter = ? " +
+                    "WHERE ID = ?";
+
+            try (Connection conn = new DataBaseConnection().connect();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                // Set the votecounter to the specified value
+                pstmt.setInt(1, counterValue);
+                pstmt.setInt(2, idOfVote);
+
+                // Execute the update
+                int affectedRows = pstmt.executeUpdate();
+                if (affectedRows > 0) {
+                    System.out.println("Successfully updated the votecounter for ID: " + idOfVote);
+                } else {
+                    System.out.println("No rows affected. Check if the ID: " + idOfVote + " exists in the database.");
+                }
+            } catch (SQLException e) {
+                System.out.println("SQL error occurred: " + e.getMessage());
+            }
+        }
+
 
         // Randomly increases the vote counts for options of a vote card and returns the new total vote count.
         public static int checkIfVoted3times(int idOfVote) {
@@ -264,7 +287,7 @@ public class DataBaseConnection {
                     "option2Number = option2Number + ?, " +
                     "option3Number = option3Number + ?, " +
                     "option4Number = option4Number + ?, " +
-                    "votecounter = votecounter + 1 " +
+                    "votecounter = votecounter " +
                     "WHERE ID = ?";
             String sqlSelect = "SELECT votecounter FROM votecards WHERE ID = ?";
 
