@@ -66,7 +66,7 @@ public class FeedBackListsWindow {
     @FXML
     private void PassToLoginWindow(){
         typewindow = false;
-        UserSession.getInstance().setStarted(false, null, null);
+        UserSession.getInstance().setStarted(null, null);
         SceneManager.getInstance().setSetVisibilityofFeed(false);
         LogInController.serializeSession(UserSession.getInstance());
         SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene

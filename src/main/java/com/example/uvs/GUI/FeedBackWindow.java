@@ -22,7 +22,7 @@ public class FeedBackWindow {
     private void PassToLoginWindow(){
         votingname.setVisible(false);
         SceneManager.getInstance().setSetVisibilityofFeed(false);
-        UserSession.getInstance().setStarted(false, null, null);
+        UserSession.getInstance().setStarted(null, null);
         LogInController.serializeSession(UserSession.getInstance());
         SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
     }

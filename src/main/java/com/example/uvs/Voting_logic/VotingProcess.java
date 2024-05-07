@@ -54,7 +54,6 @@ public class VotingProcess {
     }
 
     public static List<Integer> voting(int idVote) {
-        startVotingTimer(idVote);  // Simplified for example; consider adding logic to prevent retriggering the timer unnecessarily.
         List<Integer> people = DataBaseConnection.DataBaseInterface.getVotes(idVote);
         return people;
     }

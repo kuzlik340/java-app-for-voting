@@ -6,7 +6,6 @@ import java.util.List;
 
 public class FeedBackForApp implements ActionStrategy2{
     private String login;
-    private String id;
     private String feedback;
     List<FeedBackForApp> feedbackMap;
     public void addFeedBack(String feedbackText, String id){

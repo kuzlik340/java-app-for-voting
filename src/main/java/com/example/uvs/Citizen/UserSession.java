@@ -5,8 +5,7 @@ import java.io.Serializable;
 
 public class UserSession implements Serializable {
     private static final long serialVersionUID = 1L;
-    private static UserSession instance; // Singleton instance
-    private boolean started = false;
+    private static UserSession instance;
     private String login;
     private String password;
 
@@ -24,13 +23,7 @@ public class UserSession implements Serializable {
         }
         return instance;
     }
-
-    public boolean isStarted() {
-        return started;
-    }
-
-    public void setStarted(boolean started, String login, String password) {
-        this.started = started;
+    public void setStarted(String login, String password) {
         this.login = login;
         this.password = password;
     }

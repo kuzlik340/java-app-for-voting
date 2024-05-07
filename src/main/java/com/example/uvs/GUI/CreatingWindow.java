@@ -19,7 +19,7 @@ public class CreatingWindow implements PassUsername{
     private String user;
     @FXML
     private void PassToLoginWindow(){
-        UserSession.getInstance().setStarted(false, null, null);
+        UserSession.getInstance().setStarted(null, null);
         LogInController.serializeSession(UserSession.getInstance());
         SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
         //setting login scene if user clicked on a button in menu bar

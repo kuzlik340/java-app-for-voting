@@ -38,8 +38,8 @@ public class LogInController extends Application {
             else{
                 actionStrategy = new RegularVoter(username, password);
             }
-            actionStrategy.performAction(); //start of perfrom action for two types of users
-            UserSession.getInstance().setStarted(true, serializedCredentials[0], serializedCredentials[1]);
+            actionStrategy.showAdminFeatures(); //start of perfrom action for two types of users
+            UserSession.getInstance().setStarted( serializedCredentials[0], serializedCredentials[1]);
             SceneManager.getInstance().setUsername(serializedCredentials[0]); //pass to menu window
             SceneManager.getInstance().setPrimaryStage(primaryStage); //initializing window to open an app
             primaryStage.setResizable(false);
@@ -78,10 +78,10 @@ public class LogInController extends Application {
             else{
                 actionStrategy = new RegularVoter(username, password);
             }
-            UserSession.getInstance().setStarted(true, username, password);
+            UserSession.getInstance().setStarted(username, password);
             serializeSession(UserSession.getInstance());
             SceneManager.getInstance().setUsername(UserSession.getInstance().getLogin()); //pass to menu window
-            actionStrategy.performAction(); //start of perfrom action for two types of users
+            actionStrategy.showAdminFeatures(); //start of perfrom action for two types of users
             SceneManager.getInstance().loadScene("MenuWindow.fxml");
             usernameField.clear();  //clearing fields if user will log out
             passwordField.clear();
@@ -107,7 +107,7 @@ public class LogInController extends Application {
         String[] credentials = new String[2];
 
         UserSession deserializedSession = deserializeSession();
-        if (deserializedSession != null && deserializedSession.isStarted()) {
+        if (deserializedSession != null) {
             // Session was started, use deserialized login and password
             credentials[0] = deserializedSession.getLogin();
             credentials[1] = deserializedSession.getPassword();

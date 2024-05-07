@@ -30,7 +30,7 @@ public abstract class Citizen {
     public void addUser(String login, String password) {
         DataBaseConnection.DataBaseInterface.addUser(login, password);
     } //method to add a new user to system
-    public abstract void performAction();
+    public abstract void showAdminFeatures();
 
 
 }

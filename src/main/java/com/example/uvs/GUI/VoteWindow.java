@@ -103,6 +103,7 @@ public class VoteWindow implements PassUsername{
     @FXML
     protected void passVote(ActionEvent event) {
         //if some option was clicked we show the result of voting
+        VotingProcess.startVotingTimer(id);
         Button clickedButton = (Button) event.getSource();
         String buttonId = clickedButton.getId();
         showVoteWindowEnd(buttonId);

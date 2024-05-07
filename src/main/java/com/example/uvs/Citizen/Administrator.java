@@ -12,8 +12,8 @@ public class Administrator extends Citizen implements ActionStrategy{
     };
 
     @Override
-    public void performAction() {
-        actionStrategy.performAction();
+    public void showAdminFeatures() {
+        actionStrategy.showAdminFeatures();
     }
 }  //polymorphism that is used in strategy pattern to show admin button
 
