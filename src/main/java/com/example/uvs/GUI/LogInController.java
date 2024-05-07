@@ -38,7 +38,7 @@ public class LogInController extends Application {
             else{
                 actionStrategy = new RegularVoter(username, password);
             }
-            actionStrategy.showAdminFeatures(); //start of perfrom action for two types of users
+            actionStrategy.showAdminFeatures(); //setting visibility for admin features (true or false)
             UserSession.getInstance().setStarted( serializedCredentials[0], serializedCredentials[1]);
             SceneManager.getInstance().setUsername(serializedCredentials[0]); //pass to menu window
             SceneManager.getInstance().setPrimaryStage(primaryStage); //initializing window to open an app
@@ -65,7 +65,8 @@ public class LogInController extends Application {
             Citizen.checkPassword(username, password);
         }
         catch (PasswordInCorrectException e){
-            ErrorLabelIncorrectPassword.setVisible(true);  //error label to show that user is not registered
+            ErrorLabelIncorrectPassword.setVisible(true);
+            //catching own exception that throws only when password is the same for this user
             usernameField.setStyle("-fx-border-color: red;");
             passwordField.setStyle("-fx-border-color: red;");
             System.out.println("incorrect password exception catched");
@@ -81,9 +82,9 @@ public class LogInController extends Application {
             UserSession.getInstance().setStarted(username, password);
             serializeSession(UserSession.getInstance());
             SceneManager.getInstance().setUsername(UserSession.getInstance().getLogin()); //pass to menu window
-            actionStrategy.showAdminFeatures(); //start of perfrom action for two types of users
+            actionStrategy.showAdminFeatures(); //setting visibility for admin features (true or false)
             SceneManager.getInstance().loadScene("MenuWindow.fxml");
-            usernameField.clear();  //clearing fields if user will log out
+            usernameField.clear();  //clearing fields
             passwordField.clear();
         } else {
             ErrorLabelNotRegistered.setVisible(true);  //error label to show that user is not registered
@@ -92,18 +93,19 @@ public class LogInController extends Application {
         }
     }
     public static void serializeSession(UserSession session) {
+        //Serializing session if user didnt log out so the program will start from the account of previous user
         try {
             FileOutputStream fileOut = new FileOutputStream("session.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(session);
             out.close();
             fileOut.close();
-            System.out.println("Serialized data is saved in session.ser");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     private Supplier<String[]> checkifSerialized = () -> {
+        //lambda function to return serialized data(login and password)
         String[] credentials = new String[2];
 
         UserSession deserializedSession = deserializeSession();

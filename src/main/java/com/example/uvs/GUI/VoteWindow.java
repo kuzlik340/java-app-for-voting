@@ -138,6 +138,8 @@ public class VoteWindow implements PassUsername{
     }
     @FXML
     private void passFeedBack(){
+        //in this method we are going to the screen to send feedback on some voting
+        //this method setting true visibility of text area for name of voting
         SceneManager.getInstance().setSetVisibilityofFeed(true);
         SceneManager.getInstance().loadScene("FeedBackWindow.fxml");
     }

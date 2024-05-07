@@ -31,6 +31,7 @@ public class FeedBackForVoting extends FeedBackForApp implements ActionStrategy2
     }
     @Override
     public List<FeedBackForApp> getFeedbackText() {
+        //polymorphism for the function
         feedbackMap = DataBaseConnection.DataBaseInterface.getFeedback("FeedBackForVotingsDB");
         return feedbackMap;
     }

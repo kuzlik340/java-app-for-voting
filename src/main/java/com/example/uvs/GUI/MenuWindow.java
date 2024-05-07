@@ -36,6 +36,8 @@ public class MenuWindow implements PassUsername{
     }
     @FXML
     public void PassToAllFeedBacksWindow(){
+        //method to show all feedbacks on App
+        //here we are setting type of feedback lists (false - feedback for app, true- feeedback for votings)
         SceneManager.getInstance().feedbacktype(false);
         SceneManager.getInstance().loadScene("FeedBackListWindow.fxml");
     }
@@ -48,6 +50,7 @@ public class MenuWindow implements PassUsername{
     }
     @FXML
     public void PassToAllFeedBacksVotingWindow(){
+        //here we are setting type of feedback lists (false - feedback for app, true- feeedback for votings)
         SceneManager.getInstance().feedbacktype(true);
         SceneManager.getInstance().loadScene("FeedBackListWindow.fxml");
     }
