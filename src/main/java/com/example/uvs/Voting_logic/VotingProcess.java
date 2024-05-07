@@ -12,20 +12,17 @@ public class VotingProcess {
     private static final ConcurrentHashMap<Integer, Long> startTimeMap = new ConcurrentHashMap<>();
     private static final ConcurrentHashMap<Integer, Integer> durationMap = new ConcurrentHashMap<>();
 
-    // Runnable that handles the timer logic
-    private static class VotingTimer implements Runnable {
-        private int idVote;
+    // Method to end voting and set the counter to 3
+    private static void endVoting(int idVote) {
+        DataBaseConnection.DataBaseInterface.setCounter(idVote, 3);
+        System.out.println("Voting ended for ID " + idVote);
+    }
 
-        public VotingTimer(int idVote) {
-            this.idVote = idVote;
-        }
-
-        @Override
-        public void run() {
+    public static void startVotingTimer(int idVote) {
+        Thread newThread = new Thread(() -> {
             System.out.println("Started timer");
             try {
-                // Calculate delay: 0 to 120 seconds (0 to 2 minutes)
-                int delayInSeconds = random.nextInt(121);
+                int delayInSeconds = random.nextInt(121);  // Calculate delay: 0 to 120 seconds (0 to 2 minutes)
                 durationMap.put(idVote, delayInSeconds);
                 startTimeMap.put(idVote, System.currentTimeMillis());
 
@@ -36,21 +33,11 @@ public class VotingProcess {
                 Thread.currentThread().interrupt();
                 System.out.println("Timer interrupted for voting ID " + idVote);
             } finally {
-                // Clean up after the timer ends or is interrupted
                 startTimeMap.remove(idVote);
                 durationMap.remove(idVote);
             }
-        }
-    }
-
-    // Method to end voting and set the counter to 3
-    private static void endVoting(int idVote) {
-        DataBaseConnection.DataBaseInterface.setCounter(idVote, 3);
-        System.out.println("Voting ended for ID " + idVote);
-    }
-
-    public static void startVotingTimer(int idVote) {
-        new Thread(new VotingTimer(idVote)).start();
+        });
+        newThread.start();
     }
 
     public static List<Integer> voting(int idVote) {

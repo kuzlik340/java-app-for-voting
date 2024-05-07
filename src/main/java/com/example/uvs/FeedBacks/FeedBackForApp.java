@@ -8,14 +8,14 @@ public class FeedBackForApp implements ActionStrategy2{
     private String login;
     private String feedback;
     List<FeedBackForApp> feedbackMap;
-    public void addFeedBack(String feedbackText, String id){
-        DataBaseConnection.DataBaseInterface.addFeedback("-", id, feedbackText, "FeedBackforApp");
+    public void addFeedBack(String feedbackText, String username){
+        DataBaseConnection.DataBaseInterface.addFeedback("-", username, feedbackText, "FeedBackForAppDB");
     }
     public FeedBackForApp(){
 
     }
-    public FeedBackForApp(String id, String feedback){
-        this.login = id;
+    public FeedBackForApp(String username, String feedback){
+        this.login = username;
         this.feedback = feedback;
     }
     public String getLogin(){
@@ -30,7 +30,7 @@ public class FeedBackForApp implements ActionStrategy2{
 
 
     public  List<FeedBackForApp> getFeedbackText() {
-        feedbackMap = DataBaseConnection.DataBaseInterface.getFeedback("FeedBackforApp");
+        feedbackMap = DataBaseConnection.DataBaseInterface.getFeedback("FeedBackForAppDB");
         return feedbackMap;
     }
 

@@ -364,13 +364,13 @@ public class DataBaseConnection {
                 }
             }
         }
-        public static void addFeedback(String idOfVote, String id, String feedbackText, String nameDB) {
+        public static void addFeedback(String idOfVote, String username, String feedbackText, String nameDB) {
             if(idOfVote.equals("-")){
-                String sqlInsert = "INSERT INTO "+ nameDB + " (id, feedback) VALUES (?, ?)";
+                String sqlInsert = "INSERT INTO "+ nameDB + " (userLogin, feedback) VALUES (?, ?)";
 
                 try (Connection conn = new DataBaseConnection().connect();
                      PreparedStatement pstmt = conn.prepareStatement(sqlInsert)) {
-                    pstmt.setString(1, id); // Bind the 'id' parameter
+                    pstmt.setString(1, username); // Bind the 'id' parameter
                     pstmt.setString(2, feedbackText); // Bind the 'feedbackText' parameter
 
                     pstmt.executeUpdate();
@@ -380,11 +380,11 @@ public class DataBaseConnection {
                 }
             }
             else{
-                String sqlInsert = "INSERT INTO "+ nameDB + " (id, feedback, idOfVote) VALUES (?, ?, ?)";
+                String sqlInsert = "INSERT INTO "+ nameDB + " (userLogin, feedback, nameOfVote) VALUES (?, ?, ?)";
 
                 try (Connection conn = new DataBaseConnection().connect();
                      PreparedStatement pstmt = conn.prepareStatement(sqlInsert)) {
-                    pstmt.setString(1, id); // Bind the 'id' parameter
+                    pstmt.setString(1, username); // Bind the 'id' parameter
                     pstmt.setString(2, feedbackText); // Bind the 'feedbackText' parameter
                     pstmt.setString(3, idOfVote); // Bind the 'feedbackText' parameter
 
@@ -396,18 +396,17 @@ public class DataBaseConnection {
             }
         }
         public static List<FeedBackForApp> getFeedback(String nameDB) {
-            if(nameDB.equals("FeedBackforApp")){
+            if(nameDB.equals("FeedBackForAppDB")){
                 List<FeedBackForApp> feedbackList = new ArrayList<>();
-                String sqlSelect = "SELECT id, feedback FROM " + nameDB;
+                String sqlSelect = "SELECT userLogin, feedback FROM " + nameDB;
 
                 try (Connection conn = new DataBaseConnection().connect();
                      PreparedStatement pstmt = conn.prepareStatement(sqlSelect);
                      ResultSet rs = pstmt.executeQuery()) {
                     while (rs.next()) {
-                        System.out.println("Feedback from db");
-                        String id = rs.getString("id");
+                        String userName = rs.getString("userLogin");
                         String feedback = rs.getString("feedback");
-                        feedbackList.add(new FeedBackForApp(id, feedback));
+                        feedbackList.add(new FeedBackForApp(userName, feedback));
                     }
                 } catch (SQLException e) {
                     System.out.println("Error occurred: " + e.getMessage());
@@ -416,18 +415,18 @@ public class DataBaseConnection {
             }
             else{
                 List<FeedBackForApp> feedbackList = new ArrayList<>();
-                String sqlSelect = "SELECT idOfVote, id, feedback FROM " + nameDB;
+                String sqlSelect = "SELECT userLogin, feedback, nameOfVote FROM " + nameDB;
 
                 try (Connection conn = new DataBaseConnection().connect();
                      PreparedStatement pstmt = conn.prepareStatement(sqlSelect);
                      ResultSet rs = pstmt.executeQuery()) {
                     while (rs.next()) {
                         System.out.println("Feedback from db");
-                        String nameVote = rs.getString("idOfVote");
-                        String id = rs.getString("id");
+                        String nameOfVote = rs.getString("nameOfVote");
+                        String userName = rs.getString("userLogin");
                         String feedback = rs.getString("feedback");
-                        feedbackList.add(new FeedBackForVoting(id, feedback, nameVote));
-                        System.out.println(id + " " + feedback + " " + nameVote);
+                        feedbackList.add(new FeedBackForVoting(userName, feedback, nameOfVote));
+                        System.out.println(userName + " " + feedback + " " + nameOfVote);
                     }
                 } catch (SQLException e) {
                     System.out.println("Error occurred: " + e.getMessage());

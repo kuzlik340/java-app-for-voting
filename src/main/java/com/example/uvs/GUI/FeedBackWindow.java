@@ -36,16 +36,17 @@ public class FeedBackWindow {
     private void addNewFeedback(){
         String votename = votingname.getText();
         String text = feedbacktext.getText();
-        String id = UserSession.getInstance().getLogin();
-        System.out.println(id);
+        String username = UserSession.getInstance().getLogin();
+        System.out.println(username);
         if(!votename.isEmpty()){
             FeedBackForVoting feedback = new FeedBackForVoting();
-            feedback.addFeedBack(votename, text, id);
+            feedback.addFeedBack(votename, text, username);
             feedbacktext.clear();
+            votingname.clear();
         }
         else{
             FeedBackForApp feedback = new FeedBackForApp();
-            feedback.addFeedBack(text, id);
+            feedback.addFeedBack(text, username);
             feedbacktext.clear();
         }
     }

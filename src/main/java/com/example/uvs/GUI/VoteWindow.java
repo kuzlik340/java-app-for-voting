@@ -55,7 +55,7 @@ public class VoteWindow implements PassUsername{
     }
     @FXML
     private void PassToLoginWindow(){
-        UserSession.getInstance().setStarted(false, null, null);
+        UserSession.getInstance().setStarted( null, null);
         LogInController.serializeSession(UserSession.getInstance());
         SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
     }
