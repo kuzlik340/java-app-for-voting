@@ -3,7 +3,7 @@ package com.example.uvs.FeedBacks;
 import java.util.List;
 
 /**
- * An interface for defining action strategies.
+ * Defines the ActionStrategy2 interface, used in the strategy pattern for feedbacks.
  */
 public interface ActionStrategy2 {
     /**

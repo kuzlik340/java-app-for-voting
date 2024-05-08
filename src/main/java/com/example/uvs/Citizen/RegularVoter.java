@@ -3,7 +3,8 @@ package com.example.uvs.Citizen;
 import com.example.uvs.GUI.SceneManager;
 
 /**
- * Represents a regular voter, extending the Citizen class and implementing ActionStrategy.
+ * Represents regular voter, a regular type of Citizen.
+ * Class extending the {@link Citizen} class and implementing {@link ActionStrategy}.
  */
 public class RegularVoter extends Citizen implements ActionStrategy {
 
@@ -18,15 +19,13 @@ public class RegularVoter extends Citizen implements ActionStrategy {
     }
 
     // Strategy pattern implementation
-    ActionStrategy actionStrategy = () -> {
-        SceneManager.getInstance().setSetVisibility(false);
-    };
+
 
     /**
      * Shows admin features, using the strategy pattern to hide admin button.
      */
     @Override
     public void showAdminFeatures() {
-        actionStrategy.showAdminFeatures();
+        SceneManager.getInstance().setSetVisibility(false);
     }
 }

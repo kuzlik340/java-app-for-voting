@@ -76,8 +76,5 @@ public abstract class Citizen {
         DataBaseConnection.DataBaseInterface.addUser(login, password);
     }
 
-    /**
-     * Abstract method to show admin features.
-     */
-    public abstract void showAdminFeatures();
+
 }

@@ -1,9 +1,12 @@
 package com.example.uvs.Citizen;
 
+import com.example.uvs.FeedBacks.ActionStrategy2;
+import com.example.uvs.FeedBacks.FeedBackForApp;
 import com.example.uvs.GUI.SceneManager;
 
 /**
  * Represents an Administrator, a type of Citizen with additional administrative privileges.
+ * Class extending the {@link Citizen} class and implementing {@link ActionStrategy}.
  */
 public class Administrator extends Citizen implements ActionStrategy {
 
@@ -17,15 +20,11 @@ public class Administrator extends Citizen implements ActionStrategy {
         super(login, password);
     }
 
-    ActionStrategy actionStrategy = () -> {
-        SceneManager.getInstance().setSetVisibility(true);
-    };
-
     /**
-     * Displays the admin features by showing the admin button.
+     * Shows admin features, using the strategy pattern to show admin button.
      */
     @Override
     public void showAdminFeatures() {
-        actionStrategy.showAdminFeatures();
+        SceneManager.getInstance().setSetVisibility(true);
     }
 }
