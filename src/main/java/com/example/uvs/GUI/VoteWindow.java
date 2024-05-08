@@ -12,7 +12,11 @@ import javafx.scene.layout.AnchorPane;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VoteWindow implements PassUsername{
+/**
+ * The VoteWindow class controls the voting window.
+ * It displays the voting options, allows users to vote, and allows user to send a feedback on a voting.
+ */
+public class VoteWindow{
     @FXML
     private Button name1, name2, name3, name4;
     @FXML
@@ -24,7 +28,6 @@ public class VoteWindow implements PassUsername{
     @FXML
     private AnchorPane anchorPane;
 
-
     private String user;
     private String maintextfromDB, mainlabelfromDB, option1, option2, option3, option4;
     private int id;
@@ -35,15 +38,30 @@ public class VoteWindow implements PassUsername{
     @FXML
     ScrollPane scrollBar;
 
-    @Override
-    public void PassUser(String username) {
+
+    /**
+     * Navigate to the login window.
+     */
+    @FXML
+    private void PassToLoginWindow(){
+        UserSession.getInstance().setStarted( null, null);
+        LogInController.serializeSession(UserSession.getInstance());
+        SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
+    }
+
+    /**
+     * Initialize the voting window.
+     */
+    @FXML
+    private void initialize(){
+        scrollBar.setVvalue(-1.0); //setting scroll bar to top
         //pass username to show it in left top side of window
-        this.user = username;
-        userName.setText(user);
+        userName.setText(UserSession.getInstance().getLogin());
+        this.user = UserSession.getInstance().getLogin();
         //checking if user already voted for this voting
         alreadyVotedByThisuser = VotingProcess.checkIfVoted(id, user);
         //checking if voting was ended
-        voteEnded = VotingProcess.checkIfVoted3times(id);
+        voteEnded = VotingProcess.checkIfVoteEnded(id);
         if (alreadyVotedByThisuser && !voteEnded){
             //to display on window 'You already voted for this'
             replaceButtonsWithLabel();
@@ -53,33 +71,37 @@ public class VoteWindow implements PassUsername{
             showVoteWindowEnd("0");
         }
     }
-    @FXML
-    private void PassToLoginWindow(){
-        UserSession.getInstance().setStarted( null, null);
-        LogInController.serializeSession(UserSession.getInstance());
-        SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
-    }
 
-    @FXML
-    private void initialize(){
-        scrollBar.setVvalue(-1.0); //setting scroll bar to top
-    }
+    /**
+     * Set the ID of the voting card.
+     *
+     * @param ID The ID.
+     */
     public void setID(int ID) {
         //setting id of what voting to show from database
         this.id = ID;
-        System.out.println(id);
     }
 
+    /**
+     * Set the list of voting cards.
+     *
+     * @param votingOpt The list of voting cards.
+     */
     public void setList(List<Card> votingOpt){
-       this.votingOpt = votingOpt;
+        this.votingOpt = votingOpt;
         settingTextFromDB(id);
     }
 
+    /**
+     * Set the text from the database for the current voting.
+     *
+     * @param id The ID of the voting card.
+     */
     public void settingTextFromDB(int id) {
         //setting all text on vote window
         for(Card card: votingOpt){
             if(card.getId(card) == id){
-                mainlabelfromDB = card.getLabel(card);
+                mainlabelfromDB = card.getName(card);
                 maintextfromDB = card.getText(card);
                 List<String>options;
                 options = card.getOptions(card);
@@ -89,7 +111,6 @@ public class VoteWindow implements PassUsername{
                 option4 = options.get(3);
                 break;
             }
-
         }
         MainLabel.setText(mainlabelfromDB);
         MainText.setText(maintextfromDB);
@@ -99,7 +120,11 @@ public class VoteWindow implements PassUsername{
         name4.setText(option4);
     }
 
-
+    /**
+     * Handle voting actions.
+     *
+     * @param event The ActionEvent.
+     */
     @FXML
     protected void passVote(ActionEvent event) {
         //if some option was clicked we show the result of voting
@@ -110,10 +135,17 @@ public class VoteWindow implements PassUsername{
         DataBaseConnection.DataBaseInterface.userVoted(id, buttonId, user);
     }
 
+    /**
+     * Navigate to the menu window.
+     */
     @FXML
     private void passToMenuWindow(){
         SceneManager.getInstance().loadScene("MenuWindow.fxml");
     }
+
+    /**
+     * Replace buttons with label indicating user already voted.
+     */
     public void replaceButtonsWithLabel(){
         anchorPane.getChildren().removeAll(name1, name2, name3, name4);
         Label label = new Label();
@@ -136,6 +168,10 @@ public class VoteWindow implements PassUsername{
         anchorPane.getChildren().add(label);
         anchorPane.getChildren().add(remainingtime);
     }
+
+    /**
+     * Navigate to the feedback window.
+     */
     @FXML
     private void passFeedBack(){
         //in this method we are going to the screen to send feedback on some voting
@@ -144,6 +180,11 @@ public class VoteWindow implements PassUsername{
         SceneManager.getInstance().loadScene("FeedBackWindow.fxml");
     }
 
+    /**
+     * Replace buttons with labels indicating the voting ended.
+     *
+     * @param buttonId The ID of the button.
+     */
     public void replaceButtonsWithLabels(String buttonId) {
         Label label = new Label();
         label.setVisible(false);
@@ -170,6 +211,13 @@ public class VoteWindow implements PassUsername{
         anchorPane.getChildren().addAll(label1, label2, label3, label4, label);
     }
 
+    /**
+     * Create a label from a button.
+     *
+     * @param button The button.
+     * @param buttonId The ID of the button.
+     * @return The created label.
+     */
     private Label createLabelFromButton(Button button, String buttonId) {
         i++;
         //creating label that will be exact like button but will contain only results for voting
@@ -191,8 +239,12 @@ public class VoteWindow implements PassUsername{
         return label;
     }
 
+    /**
+     * Show the voting window indicating the voting ended.
+     *
+     * @param buttonId The ID of the button.
+     */
     private void showVoteWindowEnd(String buttonId) {
         replaceButtonsWithLabels(buttonId);
-
     }
 }

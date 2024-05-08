@@ -7,17 +7,30 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The VotingProcess class handles the voting logic.
+ */
 public class VotingProcess {
     private static final Random random = new Random();
     private static final ConcurrentHashMap<Integer, Long> startTimeMap = new ConcurrentHashMap<>();
     private static final ConcurrentHashMap<Integer, Integer> durationMap = new ConcurrentHashMap<>();
 
-    // Method to end voting and set the counter to 3
+    /**
+     * Method to end voting and set Vote counter as 1 so we will know that this vote ended.
+     *
+     * @param idVote The ID of the voting.
+     */
     private static void endVoting(int idVote) {
-        DataBaseConnection.DataBaseInterface.setCounter(idVote, 3);
+        DataBaseConnection.DataBaseInterface.setVoted(idVote, 1);
         System.out.println("Voting ended for ID " + idVote);
     }
 
+    /**
+     * Method to start the voting timer for a given voting ID.
+     * Also in this method was implemented multithreading and lambda function.
+     * Multithreading is used to handle lots of timers for different votings.
+     * @param idVote The ID of the voting.
+     */
     public static void startVotingTimer(int idVote) {
         Thread newThread = new Thread(() -> {
             System.out.println("Started timer");
@@ -40,20 +53,44 @@ public class VotingProcess {
         newThread.start();
     }
 
+    /**
+     * Method to find number of people that voted for all options.
+     *
+     * @param idVote The ID of the voting.
+     * @return The list of people voted for all options separated in list.
+     */
     public static List<Integer> voting(int idVote) {
-        List<Integer> people = DataBaseConnection.DataBaseInterface.getVotes(idVote);
-        return people;
+        return DataBaseConnection.DataBaseInterface.getVotes(idVote);
     }
 
+    /**
+     * Method to check if a user has already voted for a given voting ID.
+     *
+     * @param idVote The ID of the voting.
+     * @param login  The login of the user.
+     * @return True if the user has already voted, false otherwise.
+     */
     public static boolean checkIfVoted(int idVote, String login) {
         return DataBaseConnection.DataBaseInterface.checkIfVoted(login, idVote);
     }
 
-    public static boolean checkIfVoted3times(int idVote) {
-        int counter = DataBaseConnection.DataBaseInterface.checkIfVoted3times(idVote);
-        return counter > 2;
+    /**
+     * Method to check if the voting has ended by reaching the remaining time.
+     *
+     * @param idVote The ID of the voting.
+     * @return True if the voting has ended, false otherwise.
+     */
+    public static boolean checkIfVoteEnded(int idVote) {
+        int counter = DataBaseConnection.DataBaseInterface.checkIfVoteEnded(idVote);
+        return counter == 1;
     }
 
+    /**
+     * Method to get the remaining time for a voting ID.
+     *
+     * @param idVote The ID of the voting.
+     * @return The remaining time as a string.
+     */
     public static String getRemainingTime(int idVote) {
         Long startTime = startTimeMap.get(idVote);
         Integer duration = durationMap.get(idVote);

@@ -1,6 +1,5 @@
 package com.example.uvs.GUI;
 
-import com.example.uvs.Citizen.Administrator;
 import com.example.uvs.Citizen.UserSession;
 import com.example.uvs.FeedBacks.ActionStrategy2;
 import com.example.uvs.FeedBacks.FeedBackForApp;
@@ -12,6 +11,10 @@ import javafx.scene.layout.AnchorPane;
 
 import java.util.List;
 
+/**
+ * The FeedBackListsWindow class controls the interface for displaying feedback lists.
+ * It displays feedbacks for the application or for specific votings.
+ */
 public class FeedBackListsWindow {
     @FXML
     private AnchorPane feedbackMenu;
@@ -19,15 +22,18 @@ public class FeedBackListsWindow {
     private Menu userName;
     private boolean typewindow;
     ActionStrategy2 strategy;
+
+    /**
+     * Set the type of feedback window.
+     *
+     * @param type The type of window.
+     */
     public void setType(boolean type){
         this.typewindow = type;
         List<FeedBackForApp> feedbacks;
-        System.out.println("From feeedbacklistswindow"+type);
         if(typewindow){
-            System.out.println("We reached!!!!");
             strategy = new FeedBackForVoting();
             feedbacks = strategy.getFeedbackText();
-            System.out.println("type = " + typewindow);
         }
         else{
             strategy = new FeedBackForApp();
@@ -56,6 +62,10 @@ public class FeedBackListsWindow {
             LayoutY += 100; // Increment the Y layout to avoid overlapping
         }
     }
+
+    /**
+     * Navigate to the menu window.
+     */
     @FXML
     private void passToMenuWindow(){
         typewindow = false;
@@ -63,6 +73,9 @@ public class FeedBackListsWindow {
         SceneManager.getInstance().loadScene("MenuWindow.fxml");
     }
 
+    /**
+     * Navigate to the login window.
+     */
     @FXML
     private void PassToLoginWindow(){
         typewindow = false;
@@ -72,6 +85,9 @@ public class FeedBackListsWindow {
         SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
     }
 
+    /**
+     * Initialize the feedback list window.
+     */
     @FXML
     public void initialize() {
         userName.setText(UserSession.getInstance().getLogin());

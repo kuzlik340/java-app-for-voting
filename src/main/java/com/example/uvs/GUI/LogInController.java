@@ -11,7 +11,10 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.function.Supplier;
 
-
+/**
+ * The LogInController class controls the login interface and user authentication.
+ * It manages user login, password verification, session serialization, and navigation to different screens.
+ */
 public class LogInController extends Application {
     @FXML
     private TextField usernameField, passwordField;
@@ -22,6 +25,11 @@ public class LogInController extends Application {
     private String username, password;
     private ActionStrategy actionStrategy;
 
+    /**
+     * Start method of the JavaFX application.
+     *
+     * @param primaryStage The primary stage of the application.
+     */
     @Override
     public void start(Stage primaryStage) {
         showLogInWindow(primaryStage);
@@ -47,12 +55,20 @@ public class LogInController extends Application {
         }
     }
 
+    /**
+     * Show the login window.
+     *
+     * @param primaryStage The primary stage of the application.
+     */
     public static void showLogInWindow(Stage primaryStage) {
         SceneManager.getInstance().setPrimaryStage(primaryStage); //initializing window to open an app
         primaryStage.setResizable(false);
         SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
     }
 
+    /**
+     * Handle the login action.
+     */
     @FXML
     private void handleLoginAction() {
         username = usernameField.getText();
@@ -92,6 +108,12 @@ public class LogInController extends Application {
             passwordField.setStyle("-fx-border-color: red;");
         }
     }
+
+    /**
+     * Serialize the user session.
+     *
+     * @param session The user session to serialize.
+     */
     public static void serializeSession(UserSession session) {
         //Serializing session if user didnt log out so the program will start from the account of previous user
         try {
@@ -104,6 +126,10 @@ public class LogInController extends Application {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Check if serialized data exists and return it.
+     */
     private Supplier<String[]> checkifSerialized = () -> {
         //lambda function to return serialized data(login and password)
         String[] credentials = new String[2];
@@ -118,7 +144,11 @@ public class LogInController extends Application {
         return credentials;
     };
 
-
+    /**
+     * Deserialize the user session.
+     *
+     * @return The deserialized user session.
+     */
     private UserSession deserializeSession() {
         UserSession session = null;
         try {
@@ -134,11 +164,19 @@ public class LogInController extends Application {
         return session;
     }
 
+    /**
+     * Handle the action to navigate to the create account screen.
+     */
     @FXML
     private void handlePassToCreateAction(){
         SceneManager.getInstance().loadScene("CreateAccWindow.fxml"); //pass to scene where user can create a new account
     }
 
+    /**
+     * The main method to launch the JavaFX application.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         launch();    //launching JavaFX
     }

@@ -7,17 +7,28 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Menu;
 import javafx.scene.control.TextArea;
 
+/**
+ * The FeedBackWindow class controls the feedback window interface.
+ * It allows users to submit feedback for the application or for specific votings.
+ */
 public class FeedBackWindow {
     @FXML
     TextArea feedbacktext, votingname;
     @FXML
     private Menu userName;
     boolean visible;
+
+    /**
+     * Initialize the feedback window.
+     */
     @FXML
     public void initialize(){
         userName.setText(UserSession.getInstance().getLogin());
-        System.out.println("initializing");
     }
+
+    /**
+     * Navigate to the login window.
+     */
     @FXML
     private void PassToLoginWindow(){
         votingname.setVisible(false);
@@ -26,18 +37,25 @@ public class FeedBackWindow {
         LogInController.serializeSession(UserSession.getInstance());
         SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
     }
+
+    /**
+     * Navigate to the menu window.
+     */
     @FXML
     private void passToMenuWindow(){
         votingname.setVisible(false);
         SceneManager.getInstance().setSetVisibilityofFeed(false);
         SceneManager.getInstance().loadScene("MenuWindow.fxml");
     }
+
+    /**
+     * Add new feedback.
+     */
     @FXML
     private void addNewFeedback(){
         String votename = votingname.getText();
         String text = feedbacktext.getText();
         String username = UserSession.getInstance().getLogin();
-        System.out.println(username);
         if(!votename.isEmpty()){
             FeedBackForVoting feedback = new FeedBackForVoting();
             feedback.addFeedBack(votename, text, username);
@@ -50,11 +68,13 @@ public class FeedBackWindow {
             feedbacktext.clear();
         }
     }
+
+    /**
+     * Set the visibility of the voting name text field.
+     *
+     * @param visible The visibility status.
+     */
     public void setVisibleTextField(boolean visible){
         votingname.setVisible(visible);
-        System.out.println(visible);
     }
-
-
-
 }

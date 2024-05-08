@@ -256,7 +256,7 @@ public class DataBaseConnection {
             }
             return votes;
         }
-        public static void setCounter(int idOfVote, int counterValue) {
+        public static void setVoted(int idOfVote, int counterValue) {
             String sql = "UPDATE votecards SET " +
                     "votecounter = ? " +
                     "WHERE ID = ?";
@@ -281,7 +281,7 @@ public class DataBaseConnection {
 
 
         // Randomly increases the vote counts for options of a vote card and returns the new total vote count.
-        public static int checkIfVoted3times(int idOfVote) {
+        public static int checkIfVoteEnded(int idOfVote) {
             String sqlUpdate = "UPDATE votecards SET " +
                     "option1Number = option1Number + ?, " +
                     "option2Number = option2Number + ?, " +

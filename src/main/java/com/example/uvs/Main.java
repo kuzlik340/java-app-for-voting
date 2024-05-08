@@ -1,10 +1,20 @@
 package com.example.uvs;
+
 import com.example.uvs.DataBase.DataBaseConnection;
 import com.example.uvs.GUI.LogInController;
+
+/**
+ * The Main class serves as the entry point for the application.
+ * It initializes the login interface and starts the application.
+ */
 public class Main {
-    //some information for login. If you want to see admin feature please put in login 'Admin' and in password 'qwerty123'
-    public static void main(String[] args) {  //main class that starts an application
-        DataBaseConnection.DataBaseInterface.resetAllDatabase();   //you can use this method to restart all votings
+
+    /**
+     * The main method of the application.
+     * In this method you can also reset database if you want by just uncommenting line
+     */
+    public static void main(String[] args) {
+        //DataBaseConnection.DataBaseInterface.resetAllDatabase();   //you can use this method to restart all votings
         LogInController.main(args);  //it has to be in class main so Maven can build a jar file
     }
 }
