@@ -16,18 +16,14 @@ public class FeedBackWindow {
     TextArea feedbacktext, votingname;
     @FXML
     private Menu userName;
-    boolean visible;
 
-    /**
-     * Initialize the feedback window.
-     */
     @FXML
     public void initialize(){
         userName.setText(UserSession.getInstance().getLogin());
     }
 
     /**
-     * Navigate to the login window.
+     * Navigate to the login window when user want to log out.
      */
     @FXML
     private void PassToLoginWindow(){

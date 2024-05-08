@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
- * The CreateNewAccount class controls the interface for creating new user accounts.
+ * The CreateNewAccount class controls the window for creating new user accounts.
  */
 public class CreateNewAccount {
     @FXML

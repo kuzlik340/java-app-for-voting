@@ -15,7 +15,7 @@ import java.util.List;
  * The MenuWindow class controls the main menu interface.
  * It displays the user's username, provides options for navigating to different screens,
  * and shows available voting cards.
- * also on this screen users can put their feedback, and admin can create nev voting and check all feedbacks
+ * also on this screen users can put their feedback, and admin can create nev voting and check all feedbacks.
  */
 
 public class MenuWindow {

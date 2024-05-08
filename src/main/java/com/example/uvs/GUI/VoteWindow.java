@@ -40,7 +40,7 @@ public class VoteWindow{
 
 
     /**
-     * Navigate to the login window.
+     * Navigate to the login window when user want to log out.
      */
     @FXML
     private void PassToLoginWindow(){
@@ -49,9 +49,7 @@ public class VoteWindow{
         SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
     }
 
-    /**
-     * Initialize the voting window.
-     */
+
     @FXML
     private void initialize(){
         scrollBar.setVvalue(-1.0); //setting scroll bar to top
@@ -212,7 +210,7 @@ public class VoteWindow{
     }
 
     /**
-     * Create a label from a button.
+     * Create a labels from a buttons.
      *
      * @param button The button.
      * @param buttonId The ID of the button.

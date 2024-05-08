@@ -1,6 +1,5 @@
 package com.example.uvs.GUI;
 
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,8 +21,6 @@ public class SceneManager {
     private boolean isFeedbackVoting = false;
     private static SceneManager instance = new SceneManager();
     private Stage primaryStage;
-    private String user;  //variable to save username so we can pass username to all windows
-    //that are implementing 'PassUsername' interface
 
     private SceneManager() {}
 
@@ -33,7 +30,7 @@ public class SceneManager {
      * @return The singleton instance of SceneManager.
      */
     public static SceneManager getInstance() {
-        return instance;  //returning singleton class
+        return instance;
     }
 
     /**
@@ -45,26 +42,9 @@ public class SceneManager {
         this.primaryStage = primaryStage;
     }
 
-    /**
-     * Set the username.
-     *
-     * @param username The username to set.
-     */
-    public void setUsername(String username) {
-        this.user = username;
-    }
 
     /**
-     * Get the username.
-     *
-     * @return The username.
-     */
-    public String getUsername(){
-        return user;
-    }
-
-    /**
-     * Set the visibility for creating new voting.
+     * Set the visibility for admin features.
      *
      * @param setting The visibility setting.
      */
@@ -74,7 +54,7 @@ public class SceneManager {
 
     /**
      * Set the visibility for feedback.
-     *
+     * Method to set visibility of text area for name of voting for user
      * @param setting The visibility setting.
      */
     public void setSetVisibilityofFeed(boolean setting){
@@ -83,7 +63,8 @@ public class SceneManager {
 
     /**
      * Set the feedback type.
-     *
+     * This method is used to show the feedbacks for admin and the boolean describes what type
+     * of feedback will be shown, true - voting feedbacks, false feedbacks on app
      * @param type The feedback type.
      */
     public void feedbacktype(boolean type){
@@ -92,7 +73,8 @@ public class SceneManager {
 
     /**
      * Load a scene with the specified FXML file path.
-     *
+     * Also by using 'instanceof' construction we are keeping safety on loading screen
+     * Here I used RTTI not for serious purpose, but only for safety of code
      * @param fxmlPath The FXML file path.
      */
     public void loadScene(String fxmlPath){
@@ -101,14 +83,22 @@ public class SceneManager {
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Object controller = loader.getController();
-            if (fxmlPath.equals("MenuWindow.fxml")) { //setting visibility of button that is for admin
-                ((MenuWindow) controller).setVisibleCreating(setVisibility);
+
+            // Use instanceof to check and cast to the appropriate controller type
+            if (controller instanceof MenuWindow) {
+                if (fxmlPath.equals("MenuWindow.fxml")) {
+                    ((MenuWindow) controller).setVisibleCreating(setVisibility);
+                }
             }
-            if (fxmlPath.equals("FeedBackWindow.fxml")) { //setting visibility of button that is for admin
-                ((FeedBackWindow) controller).setVisibleTextField(visibilityOfFeed);
+            if (controller instanceof FeedBackWindow) {
+                if (fxmlPath.equals("FeedBackWindow.fxml")) {
+                    ((FeedBackWindow) controller).setVisibleTextField(visibilityOfFeed);
+                }
             }
-            if (fxmlPath.equals("FeedBackListWindow.fxml")) { //setting visibility of button that is for admin
-                ((FeedBackListsWindow) controller).setType(isFeedbackVoting);
+            if (controller instanceof FeedBackListsWindow) {
+                if (fxmlPath.equals("FeedBackListWindow.fxml")) {
+                    ((FeedBackListsWindow) controller).setType(isFeedbackVoting);
+                }
             }
 
             primaryStage.setScene(scene);
@@ -117,8 +107,8 @@ public class SceneManager {
         catch (IOException e){
             showErrorDialog();
         }
-
     }
+
 
     /**
      * Load a scene with the specified FXML file path and pass an integer ID and a list of voting cards.
@@ -143,9 +133,9 @@ public class SceneManager {
     }
 
     /**
-     * Show an error dialog.
+     * Shows an error dialog if something went wrong.
      */
-    public void showErrorDialog() { //error window if something went wrong
+    public void showErrorDialog() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("Unexpected error. Please restart application");

@@ -16,7 +16,7 @@ public class CreatingWindow {
     private Menu userName;
 
     /**
-     * Navigate to the login window.
+     * Method if user want to log out.
      */
     @FXML
     private void PassToLoginWindow(){
@@ -40,7 +40,7 @@ public class CreatingWindow {
     }
 
     /**
-     * Create a new voting card.
+     * Creation of a new voting card.
      */
     @FXML
     public void Create() {

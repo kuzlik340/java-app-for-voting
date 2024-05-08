@@ -1,0 +1,8 @@
+module:com.example.uvs.GUI
+com.example.uvs
+com.example.uvs.Citizen
+com.example.uvs.DataBase
+com.example.uvs.FeedBacks
+com.example.uvs.GUI
+com.example.uvs.Vote_cards
+com.example.uvs.Voting_logic

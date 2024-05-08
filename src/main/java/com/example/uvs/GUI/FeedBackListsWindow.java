@@ -25,7 +25,8 @@ public class FeedBackListsWindow {
 
     /**
      * Set the type of feedback window.
-     *
+     * true - display feedbacks for votings
+     * false - display feedbacks for app
      * @param type The type of window.
      */
     public void setType(boolean type){
@@ -74,7 +75,7 @@ public class FeedBackListsWindow {
     }
 
     /**
-     * Navigate to the login window.
+     * Navigate to the login window, when user want to log out.
      */
     @FXML
     private void PassToLoginWindow(){
@@ -85,9 +86,6 @@ public class FeedBackListsWindow {
         SceneManager.getInstance().loadScene("LogInWindow.fxml"); //setting login scene
     }
 
-    /**
-     * Initialize the feedback list window.
-     */
     @FXML
     public void initialize() {
         userName.setText(UserSession.getInstance().getLogin());

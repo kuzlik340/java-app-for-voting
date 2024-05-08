@@ -16,7 +16,7 @@ public class VotingProcess {
     private static final ConcurrentHashMap<Integer, Integer> durationMap = new ConcurrentHashMap<>();
 
     /**
-     * Method to end voting and set Vote counter as 1 so we will know that this vote ended.
+     * Method to end voting and set Vote counter as 1, so we will know that this vote ended.
      *
      * @param idVote The ID of the voting.
      */

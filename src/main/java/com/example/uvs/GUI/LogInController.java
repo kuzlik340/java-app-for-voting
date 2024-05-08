@@ -47,8 +47,7 @@ public class LogInController extends Application {
                 actionStrategy = new RegularVoter(username, password);
             }
             actionStrategy.showAdminFeatures(); //setting visibility for admin features (true or false)
-            UserSession.getInstance().setStarted( serializedCredentials[0], serializedCredentials[1]);
-            SceneManager.getInstance().setUsername(serializedCredentials[0]); //pass to menu window
+            UserSession.getInstance().setStarted(serializedCredentials[0], serializedCredentials[1]);
             SceneManager.getInstance().setPrimaryStage(primaryStage); //initializing window to open an app
             primaryStage.setResizable(false);
             SceneManager.getInstance().loadScene("MenuWindow.fxml");
@@ -97,7 +96,6 @@ public class LogInController extends Application {
             }
             UserSession.getInstance().setStarted(username, password);
             serializeSession(UserSession.getInstance());
-            SceneManager.getInstance().setUsername(UserSession.getInstance().getLogin()); //pass to menu window
             actionStrategy.showAdminFeatures(); //setting visibility for admin features (true or false)
             SceneManager.getInstance().loadScene("MenuWindow.fxml");
             usernameField.clear();  //clearing fields
