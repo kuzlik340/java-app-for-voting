@@ -52,19 +52,18 @@ public class VoteWindow{
 
     @FXML
     private void initialize(){
+        System.out.println("initialize");
         scrollBar.setVvalue(-1.0); //setting scroll bar to top
         //pass username to show it in left top side of window
         userName.setText(UserSession.getInstance().getLogin());
         this.user = UserSession.getInstance().getLogin();
         //checking if user already voted for this voting
-        alreadyVotedByThisuser = VotingProcess.checkIfVoted(id, user);
-        //checking if voting was ended
-        voteEnded = VotingProcess.checkIfVoteEnded(id);
+        System.out.println("check for vote from user = " + alreadyVotedByThisuser + "vote ended"+ voteEnded);
         if (alreadyVotedByThisuser && !voteEnded){
             //to display on window 'You already voted for this'
             replaceButtonsWithLabel();
         }
-        else if(voteEnded){
+        else if(voteEnded) {
             //to show the results of voting
             showVoteWindowEnd("0");
         }
@@ -76,8 +75,11 @@ public class VoteWindow{
      * @param ID The ID.
      */
     public void setID(int ID) {
+        System.out.println("setting id of vote");
         //setting id of what voting to show from database
         this.id = ID;
+        alreadyVotedByThisuser = VotingProcess.checkIfVoted(id, user);
+        voteEnded = VotingProcess.checkIfVoteEnded(id);
     }
 
     /**
@@ -116,6 +118,14 @@ public class VoteWindow{
         name2.setText(option2);
         name3.setText(option3);
         name4.setText(option4);
+        if (alreadyVotedByThisuser && !voteEnded){
+            //to display on window 'You already voted for this'
+            replaceButtonsWithLabel();
+        }
+        else if(voteEnded) {
+            //to show the results of voting
+            showVoteWindowEnd("0");
+        }
     }
 
     /**
@@ -125,6 +135,7 @@ public class VoteWindow{
      */
     @FXML
     protected void passVote(ActionEvent event) {
+        System.out.println("Starting all voting process");
         //if some option was clicked we show the result of voting
         VotingProcess.startVotingTimer(id);
         Button clickedButton = (Button) event.getSource();

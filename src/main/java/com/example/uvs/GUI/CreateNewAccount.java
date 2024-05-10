@@ -42,6 +42,10 @@ public class CreateNewAccount {
             SceneManager.getInstance().loadScene("LogInWindow.fxml");
         }
     }
+    @FXML
+    private void passToLoginWindow(){
+        SceneManager.getInstance().loadScene("LogInWindow.fxml");
+    }
 
     /**
      * Check if the password is valid.

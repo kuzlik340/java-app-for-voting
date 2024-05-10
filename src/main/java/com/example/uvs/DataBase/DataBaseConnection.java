@@ -282,47 +282,50 @@ public class DataBaseConnection {
 
         // Randomly increases the vote counts for options of a vote card and returns the new total vote count.
         public static int checkIfVoteEnded(int idOfVote) {
+            System.out.println("Check starts with id of vote " + idOfVote);
             String sqlUpdate = "UPDATE votecards SET " +
                     "option1Number = option1Number + ?, " +
                     "option2Number = option2Number + ?, " +
                     "option3Number = option3Number + ?, " +
-                    "option4Number = option4Number + ?, " +
-                    "votecounter = votecounter " +
+                    "option4Number = option4Number + ? " +
                     "WHERE ID = ?";
             String sqlSelect = "SELECT votecounter FROM votecards WHERE ID = ?";
 
-            int votecounter = -1;
+            int votecounter = 0;
 
             try (Connection conn = new DataBaseConnection().connect();
                  PreparedStatement pstmtUpdate = conn.prepareStatement(sqlUpdate);
                  PreparedStatement pstmtSelect = conn.prepareStatement(sqlSelect)) {
 
-                // Randomly generates vote increases.
-                int option1rand = (int)(Math.random()*1000);
-                int option2rand = (int)(Math.random()*1000);
-                int option3rand = (int)(Math.random()*1000);
-                int option4rand = (int)(Math.random()*1000);
+                int option1rand = (int) (Math.random() * 1000);
+                int option2rand = (int) (Math.random() * 1000);
+                int option3rand = (int) (Math.random() * 1000);
+                int option4rand = (int) (Math.random() * 1000);
 
-                // Updates vote counts.
                 pstmtUpdate.setInt(1, option1rand);
                 pstmtUpdate.setInt(2, option2rand);
                 pstmtUpdate.setInt(3, option3rand);
                 pstmtUpdate.setInt(4, option4rand);
                 pstmtUpdate.setInt(5, idOfVote);
-                pstmtUpdate.executeUpdate();
+                int updatedRows = pstmtUpdate.executeUpdate();
+                System.out.println("Updated rows: " + updatedRows);
 
-                // Retrieves the new total vote count.
                 pstmtSelect.setInt(1, idOfVote);
                 try (ResultSet rs = pstmtSelect.executeQuery()) {
                     if (rs.next()) {
                         votecounter = rs.getInt("votecounter");
+                        System.out.println("votecounter = " + votecounter);
+                    } else {
+                        System.out.println("No record found with ID = " + idOfVote);
                     }
                 }
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                System.out.println("SQL error: " + e.getMessage());
             }
+            System.out.println("from database = " + votecounter);
             return votecounter;
         }
+
         public static void resetAllDatabase() {
             String sqlResetVoteCounter = "UPDATE votecards SET votecounter = 0"; // Reset votecounter to 0 in all rows
             String sqlResetVotedIds = "UPDATE users SET voted_ids = ''"; // Reset voted_ids to empty string in all rows
