@@ -32,25 +32,28 @@ public class VotingProcess {
      * @param idVote The ID of the voting.
      */
     public static void startVotingTimer(int idVote) {
-        Thread newThread = new Thread(() -> {
-            System.out.println("Started timer");
-            try {
-                int delayInSeconds = random.nextInt(121);  // Calculate delay: 0 to 120 seconds (0 to 2 minutes)
-                durationMap.put(idVote, delayInSeconds);
-                startTimeMap.put(idVote, System.currentTimeMillis());
+        if(getRemainingTime(idVote).equals("No active timer for this voting ID.")){
+            Thread newThread = new Thread(() -> {
+                System.out.println("Started timer");
+                try {
+                    int delayInSeconds = random.nextInt(121);  // Calculate delay: 0 to 120 seconds (0 to 2 minutes)
+                    durationMap.put(idVote, delayInSeconds);
+                    startTimeMap.put(idVote, System.currentTimeMillis());
 
-                System.out.println("Timer set for " + delayInSeconds + " seconds for ID: " + idVote);
-                Thread.sleep(delayInSeconds * 1000);
-                endVoting(idVote);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                System.out.println("Timer interrupted for voting ID " + idVote);
-            } finally {
-                startTimeMap.remove(idVote);
-                durationMap.remove(idVote);
-            }
-        });
-        newThread.start();
+                    System.out.println("Timer set for " + delayInSeconds + " seconds for ID: " + idVote);
+                    Thread.sleep(delayInSeconds * 1000);
+                    endVoting(idVote);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    System.out.println("Timer interrupted for voting ID " + idVote);
+                } finally {
+                    startTimeMap.remove(idVote);
+                    durationMap.remove(idVote);
+                }
+            });
+            newThread.start();
+        }
+
     }
 
     /**
