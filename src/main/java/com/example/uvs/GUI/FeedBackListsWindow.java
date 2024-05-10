@@ -34,12 +34,11 @@ public class FeedBackListsWindow {
         List<FeedBackForApp> feedbacks;
         if(typewindow){
             strategy = new FeedBackForVoting();
-            feedbacks = strategy.getFeedbackText();
         }
         else{
             strategy = new FeedBackForApp();
-            feedbacks = strategy.getFeedbackText();
         }
+        feedbacks = strategy.getFeedbackText();
         feedbackMenu.getChildren().clear();
         double LayoutX = 25.0;
         double LayoutY = 22.0;
@@ -55,7 +54,9 @@ public class FeedBackListsWindow {
                 feedbackFromUser.setText(feedback.getLogin() + ": " + feedback.getFeedText());
             }
             else{
-                feedbackFromUser.setText("User " + feedback.getLogin() + " added feedback about voting " + feedback.getNameOfVote() + "\nfeedback: " + feedback.getFeedText());
+                feedbackFromUser.setText("User " + feedback.getLogin() +
+                        " added feedback about voting " + feedback.getNameOfVote() +
+                        "\nfeedback: " + feedback.getFeedText());
             }
             feedbackFromUser.setWrapText(true);
             feedbackFromUser.setStyle("-fx-background-color: #e9e3ce; -fx-padding: 10; -fx-text-fill: black");
