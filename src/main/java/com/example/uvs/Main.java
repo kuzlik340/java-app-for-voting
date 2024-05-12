@@ -15,6 +15,6 @@ public class Main {
      */
     public static void main(String[] args) {
         //DataBaseConnection.DataBaseInterface.resetAllDatabase();   //you can use this method to restart all votings
-        LogInController.main(args);  //it has to be in class main so Maven can build a jar file
+        LogInController.startOfApp(args);  //it has to be in class main so Maven can build a jar file
     }
 }

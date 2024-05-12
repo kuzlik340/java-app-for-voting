@@ -175,7 +175,7 @@ public class LogInController extends Application {
      *
      * @param args Command-line arguments.
      */
-    public static void main(String[] args) {
+    public static void startOfApp(String[] args) {
         launch();    //launching JavaFX
     }
 }
