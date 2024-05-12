@@ -14,7 +14,7 @@ public class VotingProcess {
     private static final Random random = new Random();
     private static final ConcurrentHashMap<Integer, Long> startTimeMap = new ConcurrentHashMap<>();
     private static final ConcurrentHashMap<Integer, Integer> durationMap = new ConcurrentHashMap<>();
-
+    private static final ConcurrentHashMap<Integer, Thread> threadMap = new ConcurrentHashMap<>();
     /**
      * Method to end voting and set Vote counter as 1, so we will know that this vote ended.
      *
@@ -22,6 +22,11 @@ public class VotingProcess {
      */
     private static void endVoting(int idVote) {
         DataBaseConnection.DataBaseInterface.setVoted(idVote, 1);
+        Thread thread = threadMap.get(idVote);
+        if (thread != null) {
+            thread.interrupt();
+            System.out.println("Timer manually stopped for voting ID " + idVote);
+        }
         System.out.println("Voting ended for ID " + idVote);
     }
 
@@ -105,7 +110,7 @@ public class VotingProcess {
             if (remainingTime < 0) {
                 return "Timer has already expired for this voting ID.";
             }
-            return "Remaining time for voting ID " + idVote + ": " + remainingTime + " seconds.";
+            return "Remaining time for voting:" + remainingTime + " seconds.";
         }
     }
 }
