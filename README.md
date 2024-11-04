@@ -1,1 +1,1 @@
-# oop-2024-stv-11-b-lang-kuzlik340
+# Aplication for urban voting system
